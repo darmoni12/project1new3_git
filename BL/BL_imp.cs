@@ -18,14 +18,14 @@ namespace BL
         }
         public IEnumerable<HostingUnit> getEmptyUnits(MyDate date, int numOfDays)
         {
-            MyDate last = new MyDate(date);
+            MyDate last = Cloning.Clone(date);
             last.addDays(numOfDays);
             return dal.getAllUnits().Where(unit => unit.checkEmpty(date,last));
         }
 
         public int getNumOfDays(MyDate first, MyDate last)
         {
-            MyDate temp = new MyDate(first);
+            MyDate temp = Cloning.Clone(first);
             int i;
             if (last.CompareTo(first) <= 0)//if last<=first
                 throw new NoDaysException();

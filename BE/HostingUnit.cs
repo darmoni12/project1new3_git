@@ -32,7 +32,7 @@ namespace BE
 
         public bool checkEmpty(MyDate first,MyDate last)
         {
-            for(MyDate temp=new MyDate(first); temp.CompareTo(last)!=0; temp.addDays(1))
+            for(MyDate temp= Cloning.Clone(first); temp.CompareTo(last)!=0; temp.addDays(1))
             {
                 if (Diary[temp] == true)
                     return false;
@@ -42,7 +42,7 @@ namespace BE
 
         public void updateDiary(MyDate first, MyDate last)
         {
-            for (MyDate temp = new MyDate(first); temp.CompareTo(last) != 0; temp.addDays(1))
+            for (MyDate temp = Cloning.Clone(first); temp.CompareTo(last) != 0; temp.addDays(1))
             {
                 Diary[temp] = true;
             }

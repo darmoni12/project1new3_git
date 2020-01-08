@@ -40,7 +40,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Cloning.cs" />
     <Compile Include="Dali.cs" />
     <Compile Include="Dal_imp.cs" />
     <Compile Include="Idal.cs" />

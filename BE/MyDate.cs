@@ -12,18 +12,8 @@ namespace BE
         public int Month { get; set; }
         public int Day { get; set; }
 
-       
-        /// <summary>
-        /// ctor for string
-        /// </summary>
-        /// <param name="date"></param>
-        public MyDate(string date)
-        {
-            string[] s = date.Split('.');
-            Day = Int32.Parse(s[0]);
-            Month = Int32.Parse(s[1]);
-            Year = Int32.Parse(s[2]);
-        }
+       public MyDate() { }
+        
         /// <summary>
         /// ctor
         /// </summary>
@@ -36,17 +26,7 @@ namespace BE
             Month = m;
             Year = y;
         }
-        /// <summary>
-        /// copy ctor
-        /// </summary>
-        /// <param name="d"></param>
-        public MyDate(MyDate d)
-        {
-            Day = d.Day;
-            Month = d.Month;
-            Year = d.Year;
-        }
-
+    
         /// <summary>
         /// override for to string
         /// </summary>
@@ -78,11 +58,9 @@ namespace BE
                 monthes = 12;
                 years -= 1;
             }
-
             this.Day = days;
             this.Month = monthes;
             this.Year = years;
-
         }
 
         /// <summary>

@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using BE;
 
-namespace DAL
+namespace BE
 {
     public static class Cloning
     {
@@ -23,6 +23,9 @@ namespace DAL
         public static GuestRequest Clone(this GuestRequest original)
         {
             GuestRequest target = new GuestRequest();
+            target.RegistrationDate = Clone(original.RegistrationDate);
+            target.ReleaseDate = Clone(original.ReleaseDate);
+            target.EntryDate = Clone(original.EntryDate);
             target.Adults = original.Adults;
             target.Area = original.Area;
             target.Children = original.Children;
@@ -34,9 +37,29 @@ namespace DAL
             target.MailAddress = original.MailAddress;
             target.Pool = original.Pool;
             target.PrivateName = original.PrivateName;
-            target.Status = original.Status;
-            target.SubArea = original.SubArea;
+            target.ActiveStatus = original.ActiveStatus;
             target.Type = original.Type;
+            target.Food = original.Food;
+            target.FreeParking = original.FreeParking;
+            target.FreeWifi = original.FreeWifi;
+            return target;
+        }
+        public static MyDate Clone(this MyDate original)
+        {
+            MyDate target = new MyDate();
+            target.Day = original.Day;
+            target.Month = original.Month;
+            target.Year = original.Year;
+            return target;
+        }
+        public static Diary Clone(this Diary original)
+        {
+            Diary target = new Diary();
+            for (int i = 0; i < 12; i++)
+            {
+                for (int j = 0; j < 31; j++)
+                    target.diary[i, j] = original.diary[i, j];
+            }
             return target;
         }
         public static HostingUnit Clone(this HostingUnit original)
@@ -45,16 +68,29 @@ namespace DAL
             target.HostingUnitKey = original.HostingUnitKey;
             target.Owner = original.Owner;
             target.HostingUnitName = original.HostingUnitName;
-            target.Diary = new Diary(original.Diary);
+            target.Diary = Clone(original.Diary);
+            target.Area = original.Area;
+            target.Address = original.Address;
+            target.Type = original.Type;
+            target.MaxPeople = original.MaxPeople;
+            target.Pool = original.Pool;
+            target.Jacuzzi = original.Jacuzzi;
+            target.Garden = original.Garden;
+            target.ChildrensAttractions = original.ChildrensAttractions;
+            target.Breakfast = original.Breakfast;
+            target.HB = original.HB;
+            target.FB = original.FB;
+            target.BedOnly = original.BedOnly;
+            target.FreeWifi = original.FreeWifi;
+            target.FreeParking = original.FreeParking;
             return target;
         }
-       public static Order Clone(this Order original)
+        public static Order Clone(this Order original)
         {
             Order target = new Order();
-            target.CreateDate = new MyDate(original.CreateDate);
+            target.CreateDate = Clone(original.CreateDate);
             target.GuestRequestKey = original.GuestRequestKey;
             target.HostingUnitKey = original.HostingUnitKey;
-            target.OrderDate = new MyDate(original.OrderDate);
             target.OrderKey = original.OrderKey;
             target.Status = original.Status;
             return target;

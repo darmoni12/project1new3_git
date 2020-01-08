@@ -16,14 +16,6 @@ namespace BE
         {
             diary = new bool[12, 31];
         }
-        public Diary(Diary other)
-        {
-            for(int i=0;i<12;i++)
-            {
-                for (int j = 0; j < 31; j++)
-                    diary[i, j] = other.diary[i, j];
-            }
-        }
         //indexer
         public bool this[MyDate date]
         {
