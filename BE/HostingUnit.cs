@@ -55,6 +55,28 @@ namespace BE
                 return false;
             if (req.Area != this.Area)
                 return false;
+            if (req.Type != this.Type)
+                return false;
+            if (req.Adults + req.Children > this.MaxPeople)
+                return false;
+            if ((req.Pool == Require.Necessary && this.Pool == false) || (req.Pool == Require.NotInterested && this.Pool == true))
+                return false;
+            if ((req.Jacuzzi == Require.Necessary && this.Jacuzzi == false) || (req.Jacuzzi == Require.NotInterested && this.Jacuzzi == true))
+                return false;
+            if ((req.Garden == Require.Necessary && this.Garden == false) || (req.Garden == Require.NotInterested && this.Garden == true))
+                return false;
+            if ((req.ChildrensAttractions == Require.Necessary && this.ChildrensAttractions == false) || (req.ChildrensAttractions == Require.NotInterested && this.ChildrensAttractions == true))
+                return false;
+            if ((req.FreeWifi == Require.Necessary && this.FreeWifi == false) || (req.FreeWifi == Require.NotInterested && this.FreeWifi == true))
+                return false;
+            if ((req.FreeParking == Require.Necessary && this.FreeParking == false) || (req.FreeParking == Require.NotInterested && this.FreeParking == true))
+                return false;
+            if ((req.Food == Food.Breakfast && this.Breakfast == false) ||
+                (req.Food == Food.HB && this.HB == false) ||
+                (req.Food == Food.FB && this.FB == false) ||
+                (req.Food == Food.BedOnly && this.BedOnly == false))
+                return false;
+            return true;
 
         }
     }

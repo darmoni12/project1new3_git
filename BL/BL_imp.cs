@@ -134,10 +134,22 @@ namespace BL
         }
         public IEnumerable<GuestRequest> GetRequestsByUnit(HostingUnit unit)
         {
-            return dal.getAllGuestRequest.Where(req => unit.fitCheck(req));
+            return dal.getAllGuestRequest().Where(req => unit.fitCheck(req));
         }
         public void addRequest(GuestRequest req)
         {
+            dal.addRequest(req);
+        }
+        public void addHostingUnit(HostingUnit unit)
+        {
+            dal.addHostingUnit(unit);
+        }
+        public void updateHostingUnit(HostingUnit unit)
+        {
+            if(dal.getAllOrder().Count(order => order.HostingUnitKey == unit.HostingUnitKey&&order.Status==OrderStatus.MailSent)==0)
+                dal.updateHostingUnit(unit);
+            else
+
 
         }
     }
