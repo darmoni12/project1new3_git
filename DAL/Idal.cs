@@ -11,7 +11,7 @@ namespace DAL
         void updateRequest(GuestRequest request);
 
         void addHostingUnit(HostingUnit unit);
-        void deleteHostingUnit(int id);
+        void removeHostingUnit(int id);
         void updateHostingUnit(HostingUnit unit);
 
         void addOrder(Order order);

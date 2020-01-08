@@ -44,7 +44,7 @@ namespace DAL
             DataSource.requestsList.Add(Cloning.Clone(request));
         }
 
-        public void deleteHostingUnit(int id)
+        public void removeHostingUnit(int id)
         {
             int count = DataSource.hostingUnitsList.RemoveAll(item=>item.HostingUnitKey == id);
             if (count == 0)

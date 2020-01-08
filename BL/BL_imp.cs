@@ -146,13 +146,24 @@ namespace BL
         }
         public void updateHostingUnit(HostingUnit unit)
         {
-            if(dal.getAllOrder().Count(order => order.HostingUnitKey == unit.HostingUnitKey&&order.Status==OrderStatus.MailSent)==0)
+            if (dal.getAllOrder().Count(order => order.HostingUnitKey == unit.HostingUnitKey && order.Status == OrderStatus.MailSent) == 0)
                 dal.updateHostingUnit(unit);
             else
-
+                throw new openOrdersException("update");
 
         }
+        public void removeHostingUnit(HostingUnit unit)
+        {
+            if (dal.getAllOrder().Count(order => order.HostingUnitKey == unit.HostingUnitKey && order.Status == OrderStatus.MailSent) == 0)
+                dal.removeHostingUnit(unit.HostingUnitKey);
+            else
+                throw new openOrdersException("remove");
+
+        }
+        public IEnumerable<Order> GetOrderByUnit(HostingUnit unit)
+        {
+            return dal.getAllOrder().Where(order => order.HostingUnitKey == unit.HostingUnitKey);
+        }
     }
-    
-    
+
 }

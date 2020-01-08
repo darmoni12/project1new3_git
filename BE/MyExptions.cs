@@ -84,4 +84,25 @@ namespace BE
         {
         }
     }
+
+
+    [Serializable]
+    public class openOrdersException : Exception
+    {
+        public openOrdersException()
+        {
+        }
+
+        public openOrdersException(string message) : base(message)
+        {
+        }
+
+        public openOrdersException(string message, Exception innerException) : base(message, innerException)
+        {
+        }
+
+        protected openOrdersException(SerializationInfo info, StreamingContext context) : base(info, context)
+        {
+        }
+    }
 }
