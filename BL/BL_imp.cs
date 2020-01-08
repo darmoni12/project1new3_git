@@ -87,20 +87,15 @@ namespace BL
             if (dal.getAllOrder().FirstOrDefault(item => item.OrderKey == order.OrderKey).Status == OrderStatus.MailSent)
             {
                 GuestRequest req = getRequest(order);
-
-
                 updateOrderStatus(order);
-
                 getHostingUnit(order).updateDiary(req.EntryDate, getNumOfDays(req.EntryDate, req.ReleaseDate));
                 req.ActiveStatus = false;
                 dal.updateRequest(req);
-
                 return calculateCommission(req);
-
             }
             return 0;
-
         }
+        
         public GuestRequest getRequest(Order order)
         {
             return dal.getAllGuestRequest().FirstOrDefault(req => order.GuestRequestKey == req.GuestRequestKey);
@@ -131,9 +126,13 @@ namespace BL
                 rejectOrder(tempOrder);
             }
         }
-        IEnumerable<Order> GetOrderByReqKey(int RequestKey)
+        public IEnumerable<Order> GetOrderByReqKey(int RequestKey)
         {
             return dal.getAllOrder().Where(order => order.GuestRequestKey == RequestKey);
+        }
+        public IEnumerable<GuestRequest> GetRequestsByUnit(HostingUnit unit)
+        {
+            return dal.getAllGuestRequest.Where(req => unit.fitCheck(req));
         }
     }
     

@@ -30,21 +30,32 @@ namespace BE
             return base.ToString();//not imlemented yet
         }
 
-        public bool checkEmpty(MyDate date,int numOfDays)
+        public bool checkEmpty(MyDate first,MyDate last)
         {
-            for(MyDate temp=new MyDate(date); temp.CompareTo(date)!=0; temp.addDays(1))
+            for(MyDate temp=new MyDate(first); temp.CompareTo(last)!=0; temp.addDays(1))
             {
                 if (Diary[temp] == true)
                     return false;
             }
             return true;
         }
+
         public void updateDiary(MyDate first, int numOfDays)
         {
-            for (MyDate temp = new MyDate(first); temp.CompareTo(first) != 0; temp.addDays(1))
+            for (MyDate temp = new MyDate(first); temp.CompareTo(last) != 0; temp.addDays(1))
             {
                 Diary[temp] = true;
             }
+        }
+        public bool fitCheck(GuestRequest req)
+        {
+            if (req.ActiveStatus == false)
+                return false;
+            if (!checkEmpty(req.EntryDate, req.ReleaseDate))
+                return false;
+            if (req.Area != this.Area)
+                return false;
+
         }
     }
 }
