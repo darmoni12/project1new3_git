@@ -11,8 +11,6 @@ namespace BE
         public int OrderKey { get; set; }
         public OrderStatus Status;
         public MyDate CreateDate { get; set; }
-        public MyDate SentMail { get; set; }
-        public MyDate OrderDate { get; set; }
         public override string ToString()
         {
             return base.ToString();//not imlemented yet

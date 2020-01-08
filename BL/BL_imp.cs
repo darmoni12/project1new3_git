@@ -25,7 +25,7 @@ namespace BL
         {
             MyDate temp = new MyDate(first);
             int i;
-            if (last.CompareTo(first) <= 0)
+            if (last.CompareTo(first) <= 0)//if last<=first
                 throw new NoDaysException();
             for (i = 0; !(temp == last); i++,temp.addDays(1)) ;
             return i;
@@ -39,17 +39,17 @@ namespace BL
 
         public int getNumOfOrder(GuestRequest req)
         {
-            return req.NumOfOrders;
+            return dal.getAllOrder().Count(order => order.GuestRequestKey == req.GuestRequestKey);
         }
 
         public int getNumOfOrder(HostingUnit unit)
         {
-            return unit.NumOfOrders;
+            return dal.getAllOrder().Count(order => order.HostingUnitKey == unit.HostingUnitKey);
         }
 
         public IEnumerable<Order> getOrders(int days)
         {
-            return dal.getAllOrder().Where(order => getNumOfDays(order.CreateDate, today()) >= days || (getNumOfDays(order.SentMail, today()) >= days));
+            return dal.getAllOrder().Where(order => getNumOfDays(order.CreateDate, today()) >= days);
         }
 
         public IEnumerable<GuestRequest> getRequestIf(Func<GuestRequest, bool> predicate)
@@ -69,7 +69,7 @@ namespace BL
 
         public int getNumOfUnits(Host host)
         {
-            return dal.getAllUnits().Count(unit => unit.Owner == host);
+            return dal.getAllUnits().Count(unit => unit.Owner.HostKey == host.HostKey);
         }
 
         public IEnumerable<IEnumerable<GuestRequest>> groupReqByArea()
@@ -81,16 +81,61 @@ namespace BL
         {
             return dal.getAllUnits().GroupBy(unit => unit.Area);
         }
-        public void updateOrderStatus(Order order,OrderStatus status)
+
+        public int acceptOrder(Order order)
         {
-            if (dal.getAllOrder().FirstOrDefault(item => item.OrderKey == order.OrderKey).Status == OrderStatus.done)
-                return;
-            if(status==OrderStatus.done)
+            if (dal.getAllOrder().FirstOrDefault(item => item.OrderKey == order.OrderKey).Status == OrderStatus.MailSent)
             {
-                getNumOfDays(order.)
+                GuestRequest req = getRequest(order);
+
+
+                updateOrderStatus(order);
+
+                getHostingUnit(order).updateDiary(req.EntryDate, getNumOfDays(req.EntryDate, req.ReleaseDate));
+                req.ActiveStatus = false;
+                dal.updateRequest(req);
+
+                return calculateCommission(req);
+
+            }
+            return 0;
+
+        }
+        public GuestRequest getRequest(Order order)
+        {
+            return dal.getAllGuestRequest().FirstOrDefault(req => order.GuestRequestKey == req.GuestRequestKey);
+        }
+        public HostingUnit getHostingUnit(Order order)
+        {
+            return dal.getAllUnits().FirstOrDefault(unit => order.HostingUnitKey == unit.HostingUnitKey);
+        }
+
+        public int calculateCommission(GuestRequest req)
+        {
+            return getNumOfDays(req.EntryDate, req.ReleaseDate) * Configuration.commission;
+        }
+        public void rejectOrder(Order order)
+        {
+            if (dal.getAllOrder().FirstOrDefault(item => item.OrderKey == order.OrderKey).Status == OrderStatus.MailSent)
+            {
+                order.Status = OrderStatus.NoResponsCustomerClose;
+                dal.updateOrder(order);
             }
         }
+        public void updateOrderStatus(Order order)
+        {
+            order.Status = OrderStatus.ReservationAprroved;
+            dal.updateOrder(order);
+            foreach (var tempOrder in GetOrderByReqKey(order.GuestRequestKey))
+            {
+                rejectOrder(tempOrder);
+            }
+        }
+        IEnumerable<Order> GetOrderByReqKey(int RequestKey)
+        {
+            return dal.getAllOrder().Where(order => order.GuestRequestKey == RequestKey);
+        }
     }
-
+    
     
 }

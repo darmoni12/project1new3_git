@@ -13,9 +13,8 @@ namespace BE
         public string PhoneNumber { get; set; }
         public string MailAddress { get; set; }
         public BankBranch BankBranchDetails { get; set; }
-        // public BankAccount HostBankAccount { get; set; }
         public int BankAccountNumber { get; set; }
-        public Aproved CollectionClearance;
+        public bool CollectionClearance;//אישור חיוב
         public override string ToString()
         {
             return base.ToString();//not imlemented yet

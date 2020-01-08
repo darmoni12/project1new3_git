@@ -8,12 +8,11 @@ namespace BE
         public string PrivateName { get; set; }
         public string FamilyName { get; set; }
         public string MailAddress { get; set; }
-        public OrderStatus Status;
-        internal MyDate RegistrationDate { get; set; }
-        internal MyDate EntryDate { get; set; }
-        internal MyDate ReleaseDate { get; set; }
+        public bool ActiveStatus = true;
+        public MyDate RegistrationDate { get; set; }
+        public MyDate EntryDate { get; set; }
+        public MyDate ReleaseDate { get; set; }
         public Area Area;
-        public string SubArea { get; set; }
         public HostingType Type;
         public int Adults { get; set; }
         public int Children { get; set; }
@@ -21,7 +20,10 @@ namespace BE
         public Require Jacuzzi;
         public Require Garden;
         public Require ChildrensAttractions;
-        public int NumOfOrders { get; set; }
+        public food Food;
+        public Require FreeWifi;
+        public Require FreeParking;
+
         public override string ToString()
         {
             return base.ToString();//not imlemented yet

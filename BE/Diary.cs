@@ -36,5 +36,6 @@ namespace BE
                 diary[date.Month - 1, date.Day - 1] = value;
             }
         }
+       
     }
 }
