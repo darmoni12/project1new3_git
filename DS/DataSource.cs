@@ -17,16 +17,22 @@ namespace DS
                 PrivateName="yacov",
                 MailAddress="yacovlevi8@gmail.com",
                 GuestRequestKey=10000001,
-                Status=OrderStatus.Not_Treated,
+                RegistrationDate=new MyDate(1,1,2020) ,                   
+                EntryDate=new MyDate(2,1,2020),
+                ReleaseDate=new MyDate(5,1,2020),
+                
+                ActiveStatus=true,
                 Adults=2,
                 Children=2,
                 Area =Area.Center,
-                SubArea= "Jerusalem",
                 ChildrensAttractions =Require.Possible,
                 Garden=Require.Possible,
                 Jacuzzi= Require.Necessary,
                 Pool=Require.Necessary,
                 Type=HostingType.Hotel,
+                FreeParking=Require.Possible,
+                FreeWifi = Require.Possible,
+                Food=Food.Breakfast,
             },
             new GuestRequest()
             {
@@ -34,16 +40,23 @@ namespace DS
                 PrivateName="idan",
                 MailAddress="1999darmoni@gmail.com",
                 GuestRequestKey=10000002,
-                Status=OrderStatus.Not_Treated,
+                RegistrationDate=new MyDate(1,1,2020) ,
+                EntryDate=new MyDate(8,1,2020),
+                ReleaseDate=new MyDate(13,1,2020),
+
+                ActiveStatus=true,
                 Adults=2,
                 Children=2,
                 Area =Area.Center,
-                SubArea= "Jerusalem",
                 ChildrensAttractions =Require.Possible,
                 Garden=Require.Possible,
                 Jacuzzi= Require.Necessary,
                 Pool=Require.Necessary,
                 Type=HostingType.Hotel,
+                FreeParking=Require.Possible,
+                FreeWifi = Require.Possible,
+                Food =Food.HB,
+                
             },
             new GuestRequest()
             {
@@ -51,16 +64,22 @@ namespace DS
                 PrivateName="chang",
                 MailAddress="chang@gmail.com",
                 GuestRequestKey=10000003,
-                Status=OrderStatus.Not_Treated,
+                RegistrationDate=new MyDate(12,2,2020) ,
+                EntryDate=new MyDate(20,2,2020),
+                ReleaseDate=new MyDate(25,2,2020),
+
+                ActiveStatus =true,
                 Adults=2,
                 Children=2,
                 Area =Area.Center,
-                SubArea= "Jerusalem",
                 ChildrensAttractions =Require.Possible,
                 Garden=Require.Possible,
                 Jacuzzi= Require.Necessary,
                 Pool=Require.Necessary,
                 Type=HostingType.Hotel,
+                FreeParking=Require.Possible,
+                FreeWifi = Require.Possible,
+                Food =Food.HB,
             }
         };
 
@@ -72,7 +91,6 @@ namespace DS
                 GuestRequestKey=11,
                 HostingUnitKey=2222,
                 CreateDate =new MyDate(1,1,2020),
-                OrderDate = new MyDate(29,12,2019),
                 Status= OrderStatus.MailSent
             },
             new Order()
@@ -81,7 +99,6 @@ namespace DS
                 GuestRequestKey=22,
                 HostingUnitKey=3,
                 CreateDate =new MyDate(1,1,2020),
-                OrderDate = new MyDate(18,12,2019),
                 Status= OrderStatus.MailSent
             },
             new Order()
@@ -90,7 +107,6 @@ namespace DS
                 GuestRequestKey=5,
                 HostingUnitKey=2222,
                 CreateDate =new MyDate(1,1,2020),
-                OrderDate = new MyDate(18,12,2019),
                 Status= OrderStatus.MailSent
             }
         };
@@ -102,7 +118,7 @@ namespace DS
                 HostingUnitName="adfsdsdg",
                 Owner=new Host()
                 {
-                    CollectionClearance=Aproved.Yes,
+                    CollectionClearance=true,
                     FamilyName="sss",
                     PrivateName="mendi",
                     PhoneNumber="0524408400",
@@ -110,12 +126,65 @@ namespace DS
                     BankAccountNumber=9654,
                     BankBranchDetails=new BankBranch()
                     {
-                        
+
                     }
                     ,
                     HostKey=55555
-                }
-            
+
+                },
+                FB=true,
+                HB=true,
+                BedOnly=true,
+                Breakfast=true,
+                Address="asdasdasd",
+                Area=Area.Center,
+                Type=HostingType.Hotel,
+                FreeParking=true,
+                FreeWifi=true,
+                Jacuzzi=false,
+                Pool=true,
+                Garden=true,
+                ChildrensAttractions=true,
+                Diary=new Diary(),
+                MaxPeople=8,
+ 
+            },
+            new HostingUnit()
+            {
+                HostingUnitKey=22222,
+                HostingUnitName="darmony unit",
+                Owner=new Host()
+                {
+                    CollectionClearance=true,
+                    FamilyName="darmony",
+                    PrivateName="idan",
+                    PhoneNumber="0525555555",
+                    MailAddress="dardar@mail.com",
+                    BankAccountNumber=9654,
+                    BankBranchDetails=new BankBranch()
+                    {
+
+                    }
+                    ,
+                    HostKey=22
+
+                },
+                FB=true,
+                HB=true,
+                BedOnly=true,
+                Breakfast=true,
+                Address="pisga",
+                Area=Area.Center,
+                Type=HostingType.Hotel,
+                FreeParking=true,
+                FreeWifi=true,
+                Jacuzzi=false,
+                Pool=true,
+                Garden=true,
+                ChildrensAttractions=true,
+                Diary=new Diary(),
+                MaxPeople=8,
+
             }
         };
         public static List<Host> hostList = new List<Host>();
