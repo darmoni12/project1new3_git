@@ -158,12 +158,10 @@ namespace BL
                 dal.removeHostingUnit(unit.HostingUnitKey);
             else
                 throw new openOrdersException("remove");
-
         }
         public IEnumerable<Order> GetOrderByUnit(HostingUnit unit)
         {
             return dal.getAllOrder().Where(order => order.HostingUnitKey == unit.HostingUnitKey);
         }
     }
-
 }
