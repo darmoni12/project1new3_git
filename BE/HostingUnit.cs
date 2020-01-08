@@ -40,7 +40,7 @@ namespace BE
             return true;
         }
 
-        public void updateDiary(MyDate first, int numOfDays)
+        public void updateDiary(MyDate first, MyDate last)
         {
             for (MyDate temp = new MyDate(first); temp.CompareTo(last) != 0; temp.addDays(1))
             {

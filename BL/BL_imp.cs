@@ -18,7 +18,9 @@ namespace BL
         }
         public IEnumerable<HostingUnit> getEmptyUnits(MyDate date, int numOfDays)
         {
-            return dal.getAllUnits().Where(unit => unit.checkEmpty(date, numOfDays));
+            MyDate last = new MyDate(date);
+            last.addDays(numOfDays);
+            return dal.getAllUnits().Where(unit => unit.checkEmpty(date,last));
         }
 
         public int getNumOfDays(MyDate first, MyDate last)
@@ -88,7 +90,7 @@ namespace BL
             {
                 GuestRequest req = getRequest(order);
                 updateOrderStatus(order);
-                getHostingUnit(order).updateDiary(req.EntryDate, getNumOfDays(req.EntryDate, req.ReleaseDate));
+                getHostingUnit(order).updateDiary(req.EntryDate, req.ReleaseDate);
                 req.ActiveStatus = false;
                 dal.updateRequest(req);
                 return calculateCommission(req);
@@ -133,6 +135,10 @@ namespace BL
         public IEnumerable<GuestRequest> GetRequestsByUnit(HostingUnit unit)
         {
             return dal.getAllGuestRequest.Where(req => unit.fitCheck(req));
+        }
+        public void addRequest(GuestRequest req)
+        {
+
         }
     }
     
