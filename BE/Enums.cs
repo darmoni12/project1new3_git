@@ -12,7 +12,7 @@ namespace BE
 
     public enum OrderStatus { MailSent, NoResponsCustomerClose, ReservationAprroved }
 
-    public enum food { Breakfast,HB,FB,BedOnly}
+    public enum Food { Breakfast,HB,FB,BedOnly}
 
 
 }

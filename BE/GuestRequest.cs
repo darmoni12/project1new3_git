@@ -20,7 +20,7 @@ namespace BE
         public Require Jacuzzi;
         public Require Garden;
         public Require ChildrensAttractions;
-        public food Food;
+        public Food Food;
         public Require FreeWifi;
         public Require FreeParking;
 
