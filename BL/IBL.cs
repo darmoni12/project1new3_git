@@ -28,6 +28,7 @@ namespace BL
         void updateHostingUnit(HostingUnit unit);
         IEnumerable<Host> getAllHosts();
 
+        void addHostingUnit(HostingUnit unit);
 
 
 

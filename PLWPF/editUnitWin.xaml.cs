@@ -38,7 +38,7 @@ namespace PLWPF
             ownerCB.SelectedIndex = Unit.Owner.HostKey - Configuration.SerialNumBonus;
             jacuzziCB.IsChecked = Unit.Jacuzzi;
             gardenCB.IsChecked = Unit.Garden;
-            poolCB.IsChecked = unit.Pool;
+            poolCB.IsChecked = Unit.Pool;
             childrenAtractionCB.IsChecked = Unit.ChildrensAttractions;
             breakfastCB.IsChecked = Unit.Breakfast;
             HBCB.IsChecked = Unit.HB;

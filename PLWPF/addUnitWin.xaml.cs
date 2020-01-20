@@ -11,6 +11,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using BE;
+using BL;
 
 namespace PLWPF
 {
@@ -19,9 +21,49 @@ namespace PLWPF
     /// </summary>
     public partial class addUnitWin : Window
     {
+        public IBL myBL = BLI.GetBL();
         public addUnitWin()
         {
             InitializeComponent();
+            areaCB.ItemsSource = Enum.GetValues(typeof(Area)).Cast<Area>().Where(area => area != Area.All);
+            typeCB.ItemsSource = Enum.GetValues(typeof(HostingType)).Cast<HostingType>();
+            ownerCB.ItemsSource = myBL.getAllHosts();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                HostingUnit Unit = new HostingUnit();
+                Unit.Diary = new Diary();
+                Unit.Owner = (Host)ownerCB.SelectedItem;
+                Unit.Area = (Area)areaCB.SelectedItem;
+                Unit.Type = (HostingType)typeCB.SelectedItem;
+                if(unitNameTB.Text=="")
+                    throw 
+                Unit.HostingUnitName = unitNameTB.Text;
+                if(addressTB.Text=="")
+                    throw
+                Unit.Address = addressTB.Text;
+                Unit.MaxPeople = int.Parse(maxPeopleTB.Text);
+                Unit.Jacuzzi = (bool)jacuzziCB.IsChecked;
+                Unit.Garden = (bool)gardenCB.IsChecked;
+                Unit.Pool = (bool)poolCB.IsChecked;
+                Unit.ChildrensAttractions = (bool)childrenAtractionCB.IsChecked;
+                Unit.Breakfast = (bool)breakfastCB.IsChecked;
+                Unit.HB = (bool)HBCB.IsChecked;
+                Unit.FB = (bool)FBCB.IsChecked;
+                Unit.BedOnly = (bool)bedOnlyCB.IsChecked;
+                Unit.FreeParking = (bool)freeParkingCB.IsChecked;
+                Unit.FreeWifi = (bool)freeWifiCB.IsChecked;
+                myBL.addHostingUnit(Unit);
+                MessageBox.Show("secces");
+                this.Close();
+            }
+            catch (Exception error)
+            {
+                MessageBox.Show(error.Message);
+            }
         }
     }
 }

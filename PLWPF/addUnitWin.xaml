@@ -5,8 +5,36 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PLWPF"
         mc:Ignorable="d"
-        Title="addUnitWin" Height="300" Width="300">
-    <Grid>
-        
+        Title="addUnitWin" Height="467.347" Width="797.959">
+    <Grid x:Name="editUnitWinGrid" Margin="0,0,2,-5">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Label Content="owner" HorizontalAlignment="Left" Height="49" Margin="10,42,0,0" VerticalAlignment="Top" Width="117"/>
+        <Label Content="unit name" HorizontalAlignment="Left" Height="48" Margin="10,96,0,0" VerticalAlignment="Top" Width="68"/>
+        <Label Content="area" HorizontalAlignment="Left" Height="51" Margin="10,169,0,0" VerticalAlignment="Top" Width="68"/>
+        <Label Content="address" HorizontalAlignment="Left" Height="49" Margin="10,251,0,0" VerticalAlignment="Top" Width="68"/>
+        <Label Content="type" HorizontalAlignment="Left" Height="49" Margin="28,305,0,0" VerticalAlignment="Top" Width="76"/>
+        <Label Content="max people" HorizontalAlignment="Left" Height="24" Margin="28,355,0,0" VerticalAlignment="Top" Width="76"/>
+        <Button Content="add" HorizontalAlignment="Left" Height="92" Margin="66,300,0,0" VerticalAlignment="Top" Width="147" Grid.Column="2" Click="Button_Click"/>
+        <ComboBox Name="ownerCB" HorizontalAlignment="Left" Height="49" Margin="104,42,0,0" VerticalAlignment="Top" Width="121"/>
+        <TextBox Name="unitNameTB" HorizontalAlignment="Left" Height="30" Margin="108,114,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="117"/>
+        <ComboBox Name="areaCB" HorizontalAlignment="Left" Height="51" Margin="108,169,0,0" VerticalAlignment="Top" Width="117"/>
+        <TextBox Name="addressTB" HorizontalAlignment="Left" Height="41" Margin="110,259,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="115"/>
+        <ComboBox Name="typeCB" HorizontalAlignment="Left" Height="30" Margin="110,305,0,0" VerticalAlignment="Top" Width="115"/>
+        <TextBox Name="maxPeopleTB" HorizontalAlignment="Left" Height="27" Margin="145,365,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="80"/>
+        <CheckBox Name="poolCB" Content="pool" Grid.Column="1" HorizontalAlignment="Left" Height="30" Margin="41,48,0,0" VerticalAlignment="Top" Width="81" RenderTransformOrigin="0.037,0.617"/>
+        <CheckBox Name="jacuzziCB" Content="jacuzzi" Grid.Column="1" HorizontalAlignment="Left" Height="30" Margin="41,114,0,0" VerticalAlignment="Top" Width="81"/>
+        <CheckBox Name="gardenCB" Content="garden" Grid.Column="1" HorizontalAlignment="Left" Height="30" Margin="41,175,0,0" VerticalAlignment="Top" Width="81"/>
+        <CheckBox Name="childrenAtractionCB" Content="children atraction" Grid.Column="1" HorizontalAlignment="Left" Height="30" Margin="41,239,0,0" VerticalAlignment="Top" Width="106"/>
+        <CheckBox Name="breakfastCB" Content="breakfast" Grid.Column="1" HorizontalAlignment="Left" Height="30" Margin="41,300,0,0" VerticalAlignment="Top" Width="81"/>
+        <CheckBox Name="HBCB" Content="HB" Grid.Column="1" HorizontalAlignment="Left" Height="30" Margin="41,342,0,0" VerticalAlignment="Top" Width="81"/>
+        <CheckBox Name="FBCB" Content="FB" Grid.Column="2" HorizontalAlignment="Left" Height="30" Margin="66,40,0,0" VerticalAlignment="Top" Width="81"/>
+        <CheckBox Name="bedOnlyCB" Content="bed only" Grid.Column="2" HorizontalAlignment="Left" Height="30" Margin="66,96,0,0" VerticalAlignment="Top" Width="81"/>
+        <CheckBox Name="freeWifiCB" Content="free wifi" Grid.Column="2" HorizontalAlignment="Left" Height="30" Margin="66,157,0,0" VerticalAlignment="Top" Width="81"/>
+        <CheckBox Name="freeParkingCB" Content="free parking" Grid.Column="2" HorizontalAlignment="Left" Height="30" Margin="66,227,0,0" VerticalAlignment="Top" Width="96"/>
+
     </Grid>
 </Window>
