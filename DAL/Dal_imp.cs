@@ -106,7 +106,9 @@ namespace DAL
             int count = DataSource.hostingUnitsList.RemoveAll(item =>item.HostingUnitKey == unit.HostingUnitKey);
             if (count == 0)
                 throw new MissingIdException("hostingUnit", unit.HostingUnitKey);
-            addHostingUnit(unit);
+            if (CheckHostingUnit(unit.HostingUnitKey))
+                throw new DuplicateIdException("hotingUnit", unit.HostingUnitKey);
+            DataSource.hostingUnitsList.Add(Cloning.Clone(unit));
         }
 
         public void updateOrder(Order order)

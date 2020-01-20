@@ -59,16 +59,6 @@ namespace PLWPF
             {
                 MessageBox.Show(error.Message);
             }
-            
-            //try
-            //{
-            //    HostingUnit unit = (HostingUnit)(lv.SelectedItem);
-            //    myBL.updateHostingUnit(unit);
-            //}
-            //catch (Exception error)
-            //{
-            //    MessageBox.Show(error.Message);
-            //}
         }
 
         private void Button_Click_2(object sender, RoutedEventArgs e)//add unit

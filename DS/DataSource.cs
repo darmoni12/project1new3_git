@@ -116,7 +116,7 @@ namespace DS
                 BankAccountNumber=7496,
                 PrivateName="idan",
                 FamilyName="darmoni",
-                HostKey =1,
+                HostKey =10000001,
                 MailAddress="tgfd@gf",
                 PhoneNumber="6552",
                 CollectionClearance =true,
@@ -127,7 +127,7 @@ namespace DS
                  BankAccountNumber=34579,
                 PrivateName="yacov",
                 FamilyName="levi",
-                HostKey =2,
+                HostKey =10000002,
                 MailAddress="fg@gh",
                 PhoneNumber="6972",
                 CollectionClearance =true,
@@ -138,14 +138,14 @@ namespace DS
         {
             new HostingUnit()
             {
-                HostingUnitKey=100001,
+                HostingUnitKey=10000001,
                 HostingUnitName="qwe",
-                Owner= hostList.FirstOrDefault(host=>host.HostKey==1),
+                Owner= hostList.FirstOrDefault(host=>host.HostKey==10000001),
                 FB=true,
                 HB=true,
                 BedOnly=true,
                 Breakfast=true,
-                Address="asdasdasd",
+                Address="asd",
                 Area=Area.Center,
                 Type=HostingType.Hotel,
                 FreeParking=true,
@@ -159,9 +159,9 @@ namespace DS
             },
             new HostingUnit()
             {
-                HostingUnitKey=100002,
+                HostingUnitKey=10000002,
                 HostingUnitName="unit",
-                Owner = hostList.FirstOrDefault(host=>host.HostKey==2),
+                Owner = hostList.FirstOrDefault(host=>host.HostKey==10000002),
                 FB=true,
                 HB=true,
                 BedOnly=true,

@@ -27,7 +27,7 @@ namespace BE
 
         public override string ToString()
         {
-            return HostingUnitKey + ": " + HostingUnitName + " of " + Owner.PrivateName + " " + Owner.FamilyName;
+            return HostingUnitKey + ": " + HostingUnitName + " of " + Owner;
         }
 
         public bool checkEmpty(MyDate first,MyDate last)
