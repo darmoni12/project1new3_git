@@ -20,7 +20,7 @@ namespace DAL
         IEnumerable<HostingUnit> getAllUnits();
         IEnumerable<GuestRequest> getAllGuestRequest();
         IEnumerable<Order> getAllOrder();
-        IEnumerable<Host> getAllHost();
+        IEnumerable<Host> getAllHosts();
         List<BankBranch> getAllBranches();
     }
 }

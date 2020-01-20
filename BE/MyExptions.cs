@@ -105,4 +105,44 @@ namespace BE
         {
         }
     }
+
+    [Serializable]
+    public class textExeption : Exception
+    {
+        public textExeption()
+        {
+        }
+
+        public textExeption(string message) : base(message)
+        {
+
+        }
+
+        public textExeption(string message, Exception innerException) : base(message, innerException)
+        {
+        }
+
+        protected textExeption(SerializationInfo info, StreamingContext context) : base(info, context)
+        {
+        }
+    }
+    [Serializable]
+    public class yearExeption : Exception
+    {
+        public yearExeption()
+        {
+        }
+
+        public yearExeption(string message) : base(message)
+        {
+        }
+
+        public yearExeption(string message, Exception innerException) : base(message, innerException)
+        {
+        }
+
+        protected yearExeption(SerializationInfo info, StreamingContext context) : base(info, context)
+        {
+        }
+    }
 }

@@ -16,15 +16,35 @@ using BL;
 
 namespace PLWPF
 {
+
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
     {
-        IBL myBL = BLI.GetBL();
+        public IBL myBL = BLI.GetBL();
+
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)//add req
+        {
+            addNewReqWin win = new addNewReqWin();
+            win.Show();
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            unitsWin win = new unitsWin();
+            win.ShowDialog();
+        }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            ordersWin win = new ordersWin();
+            win.ShowDialog();
         }
     }
 }

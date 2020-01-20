@@ -6,9 +6,9 @@ namespace BE
 {
     public class HostingUnit
     {
-        public int HostingUnitKey { get; set; }
+        public int HostingUnitKey { get; set; }//
         public Host Owner { get; set; }
-        public string HostingUnitName { get; set; }
+        public string HostingUnitName { get; set; }//
         public Diary Diary { get; set ; }
         public Area Area;
         public string Address { get; set; }
@@ -27,7 +27,7 @@ namespace BE
 
         public override string ToString()
         {
-            return base.ToString();//not imlemented yet
+            return HostingUnitKey + ": " + HostingUnitName + " of " + Owner.PrivateName + " " + Owner.FamilyName;
         }
 
         public bool checkEmpty(MyDate first,MyDate last)
@@ -53,23 +53,23 @@ namespace BE
                 return false;
             if (!checkEmpty(req.EntryDate, req.ReleaseDate))
                 return false;
-            if (req.Area != this.Area)
+            if (req.Area!=Area.All && req.Area != this.Area)
                 return false;
             if (req.Type != this.Type)
                 return false;
             if (req.Adults + req.Children > this.MaxPeople)
                 return false;
-            if ((req.Pool == Require.Necessary && this.Pool == false) || (req.Pool == Require.NotInterested && this.Pool == true))
+            if ((req.Pool == Require.Necessary && this.Pool == false) || (req.Pool == Require.PreferNot && this.Pool == true))
                 return false;
-            if ((req.Jacuzzi == Require.Necessary && this.Jacuzzi == false) || (req.Jacuzzi == Require.NotInterested && this.Jacuzzi == true))
+            if ((req.Jacuzzi == Require.Necessary && this.Jacuzzi == false) || (req.Jacuzzi == Require.PreferNot && this.Jacuzzi == true))
                 return false;
-            if ((req.Garden == Require.Necessary && this.Garden == false) || (req.Garden == Require.NotInterested && this.Garden == true))
+            if ((req.Garden == Require.Necessary && this.Garden == false) || (req.Garden == Require.PreferNot && this.Garden == true))
                 return false;
-            if ((req.ChildrensAttractions == Require.Necessary && this.ChildrensAttractions == false) || (req.ChildrensAttractions == Require.NotInterested && this.ChildrensAttractions == true))
+            if ((req.ChildrensAttractions == Require.Necessary && this.ChildrensAttractions == false) || (req.ChildrensAttractions == Require.PreferNot && this.ChildrensAttractions == true))
                 return false;
-            if ((req.FreeWifi == Require.Necessary && this.FreeWifi == false) || (req.FreeWifi == Require.NotInterested && this.FreeWifi == true))
+            if ((req.FreeWifi == Require.Necessary && this.FreeWifi == false) || (req.FreeWifi == Require.PreferNot && this.FreeWifi == true))
                 return false;
-            if ((req.FreeParking == Require.Necessary && this.FreeParking == false) || (req.FreeParking == Require.NotInterested && this.FreeParking == true))
+            if ((req.FreeParking == Require.Necessary && this.FreeParking == false) || (req.FreeParking == Require.PreferNot && this.FreeParking == true))
                 return false;
             if ((req.Food == Food.Breakfast && this.Breakfast == false) ||
                 (req.Food == Food.HB && this.HB == false) ||

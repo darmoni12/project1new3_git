@@ -95,7 +95,7 @@ namespace DAL
                    select Cloning.Clone(unit);
         }
 
-        public IEnumerable<Host> getAllHost()
+        public IEnumerable<Host> getAllHosts()
         {
             return from host in DataSource.hostList
                    select Cloning.Clone(host);

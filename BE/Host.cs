@@ -17,7 +17,7 @@ namespace BE
         public bool CollectionClearance;//אישור חיוב
         public override string ToString()
         {
-            return base.ToString();//not imlemented yet
+            return PrivateName + " " + FamilyName;
         }
     }
 }

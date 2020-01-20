@@ -12,10 +12,6 @@ namespace BL
     public class BL_imp : IBL
     {
         Idal dal = Dali.GetDal();
-        public MyDate today()
-        {
-            return new MyDate(DateTime.Today.Day, DateTime.Today.Month, DateTime.Today.Year);
-        }
         public IEnumerable<HostingUnit> getEmptyUnits(MyDate date, int numOfDays)
         {
             MyDate last = Cloning.Clone(date);
@@ -29,13 +25,13 @@ namespace BL
             int i;
             if (last.CompareTo(first) <= 0)//if last<=first
                 throw new NoDaysException();
-            for (i = 0; !(temp == last); i++,temp.addDays(1)) ;
+            for (i = 0; temp.CompareTo(last)==0; i++,temp.addDays(1)) ;
             return i;
         }
 
         public int getNumOfDays(MyDate date)
         {
-            MyDate last = today();
+            MyDate last = MyDate.today();
             return getNumOfDays(date, last);
         }
 
@@ -51,7 +47,7 @@ namespace BL
 
         public IEnumerable<Order> getOrders(int days)
         {
-            return dal.getAllOrder().Where(order => getNumOfDays(order.CreateDate, today()) >= days);
+            return dal.getAllOrder().Where(order => getNumOfDays(order.CreateDate, MyDate.today()) >= days);
         }
 
         public IEnumerable<GuestRequest> getRequestIf(Func<GuestRequest, bool> predicate)
@@ -66,7 +62,7 @@ namespace BL
 
         public IEnumerable<IEnumerable<Host>> groupByNumOfUnits()
         {
-            return dal.getAllHost().GroupBy(host => getNumOfUnits(host));
+            return dal.getAllHosts().GroupBy(host => getNumOfUnits(host));
         }
 
         public int getNumOfUnits(Host host)
@@ -138,7 +134,8 @@ namespace BL
         }
         public void addRequest(GuestRequest req)
         {
-            dal.addRequest(req);
+            if (getNumOfDays(req.EntryDate, req.ReleaseDate) > 0) ;//if not legal throw exeption
+                dal.addRequest(req);
         }
         public void addHostingUnit(HostingUnit unit)
         {
@@ -150,18 +147,25 @@ namespace BL
                 dal.updateHostingUnit(unit);
             else
                 throw new openOrdersException("update");
-
         }
-        public void removeHostingUnit(HostingUnit unit)
+        public void removeHostingUnit(int id)
         {
-            if (dal.getAllOrder().Count(order => order.HostingUnitKey == unit.HostingUnitKey && order.Status == OrderStatus.MailSent) == 0)
-                dal.removeHostingUnit(unit.HostingUnitKey);
+            if (dal.getAllOrder().Count(order => order.HostingUnitKey == id && order.Status == OrderStatus.MailSent) == 0)//בודק שאין הזמנות פעילות ליחידת אירוח
+                dal.removeHostingUnit(id);
             else
                 throw new openOrdersException("remove");
         }
         public IEnumerable<Order> GetOrderByUnit(HostingUnit unit)
         {
             return dal.getAllOrder().Where(order => order.HostingUnitKey == unit.HostingUnitKey);
+        }
+        public IEnumerable<HostingUnit> getAllUnits()
+        {
+            return dal.getAllUnits();
+        }
+        public IEnumerable<Host> getAllHosts()
+        {
+            return dal.getAllHosts();
         }
     }
 }

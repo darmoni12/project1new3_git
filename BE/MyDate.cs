@@ -26,7 +26,15 @@ namespace BE
             Month = m;
             Year = y;
         }
-    
+
+        public MyDate(string date)
+        {
+            string[] s = date.Split('/');
+            Day = Int32.Parse(s[0]);
+            Month = Int32.Parse(s[1]);
+            Year = Int32.Parse(s[2]);
+        }
+
         /// <summary>
         /// override for to string
         /// </summary>
@@ -34,6 +42,11 @@ namespace BE
         public override string ToString()
         {
             return Day + "." + Month + "." + Year;
+        }
+
+        public static MyDate today()
+        {
+            return new MyDate(DateTime.Today.Day, DateTime.Today.Month, DateTime.Today.Year);
         }
 
         /// <summary>

@@ -8,7 +8,7 @@ namespace BE
 
     public enum HostingType { Zimmer, Hotel, Camping }
 
-    public enum Require { Necessary, Possible, NotInterested }
+    public enum Require { Possible, Necessary, PreferNot }
 
     public enum OrderStatus { MailSent, NoResponsCustomerClose, ReservationAprroved }
 

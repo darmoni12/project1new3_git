@@ -54,10 +54,37 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="addUnitWin.xaml.cs">
+      <DependentUpon>addUnitWin.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="editUnitWin.xaml.cs">
+      <DependentUpon>editUnitWin.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ordersWin.xaml.cs">
+      <DependentUpon>ordersWin.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="unitsWin.xaml.cs">
+      <DependentUpon>unitsWin.xaml</DependentUpon>
+    </Compile>
+    <Page Include="addNewReqWin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="addUnitWin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="editUnitWin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Compile Include="addNewReqWin.xaml.cs">
+      <DependentUpon>addNewReqWin.xaml</DependentUpon>
+    </Compile>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -66,6 +93,14 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="ordersWin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="unitsWin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">

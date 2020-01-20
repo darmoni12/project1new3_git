@@ -20,6 +20,16 @@ namespace BL
         IEnumerable<IEnumerable<GuestRequest>> groupReqByArea();
         IEnumerable<IEnumerable<GuestRequest>> groupByNumOfPeople();
         IEnumerable<IEnumerable<Host>> groupByNumOfUnits();
-        IEnumerable<IEnumerable<HostingUnit>> groupUnitsByArea(); 
+        IEnumerable<IEnumerable<HostingUnit>> groupUnitsByArea();
+
+        void addRequest(GuestRequest req);
+        IEnumerable<HostingUnit> getAllUnits();
+        void removeHostingUnit(int id);
+        void updateHostingUnit(HostingUnit unit);
+        IEnumerable<Host> getAllHosts();
+
+
+
+
     }
 }

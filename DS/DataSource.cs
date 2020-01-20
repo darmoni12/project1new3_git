@@ -82,7 +82,6 @@ namespace DS
                 Food =Food.HB,
             }
         };
-
         public static List<Order> ordersList = new List<Order>()
         {
             new Order()
@@ -110,28 +109,38 @@ namespace DS
                 Status= OrderStatus.MailSent
             }
         };
+        public static List<Host> hostList = new List<Host>()
+        {
+            new Host()
+            {
+                BankAccountNumber=7496,
+                PrivateName="idan",
+                FamilyName="darmoni",
+                HostKey =1,
+                MailAddress="tgfd@gf",
+                PhoneNumber="6552",
+                CollectionClearance =true,
+                BankBranchDetails=new BankBranch(){BankName="gfdx",BankNumber=12,BranchAddress="ds",BranchCity="kdx",BranchNumber=978}
+            },
+            new Host()
+            {
+                 BankAccountNumber=34579,
+                PrivateName="yacov",
+                FamilyName="levi",
+                HostKey =2,
+                MailAddress="fg@gh",
+                PhoneNumber="6972",
+                CollectionClearance =true,
+                BankBranchDetails=new BankBranch(){BankName="ghj",BankNumber=13,BranchAddress="djhbs",BranchCity="kdjhnx",BranchNumber=588}
+            }
+        };
         public static List<HostingUnit> hostingUnitsList = new List<HostingUnit>()
         {
             new HostingUnit()
             {
-                HostingUnitKey=5555,
-                HostingUnitName="adfsdsdg",
-                Owner=new Host()
-                {
-                    CollectionClearance=true,
-                    FamilyName="sss",
-                    PrivateName="mendi",
-                    PhoneNumber="0524408400",
-                    MailAddress="asssss@mail.com",
-                    BankAccountNumber=9654,
-                    BankBranchDetails=new BankBranch()
-                    {
-
-                    }
-                    ,
-                    HostKey=55555
-
-                },
+                HostingUnitKey=100001,
+                HostingUnitName="qwe",
+                Owner= hostList.FirstOrDefault(host=>host.HostKey==1),
                 FB=true,
                 HB=true,
                 BedOnly=true,
@@ -146,29 +155,13 @@ namespace DS
                 Garden=true,
                 ChildrensAttractions=true,
                 Diary=new Diary(),
-                MaxPeople=8,
- 
+                MaxPeople=8
             },
             new HostingUnit()
             {
-                HostingUnitKey=22222,
-                HostingUnitName="darmony unit",
-                Owner=new Host()
-                {
-                    CollectionClearance=true,
-                    FamilyName="darmony",
-                    PrivateName="idan",
-                    PhoneNumber="0525555555",
-                    MailAddress="dardar@mail.com",
-                    BankAccountNumber=9654,
-                    BankBranchDetails=new BankBranch()
-                    {
-
-                    }
-                    ,
-                    HostKey=22
-
-                },
+                HostingUnitKey=100002,
+                HostingUnitName="unit",
+                Owner = hostList.FirstOrDefault(host=>host.HostKey==2),
                 FB=true,
                 HB=true,
                 BedOnly=true,
@@ -184,9 +177,7 @@ namespace DS
                 ChildrensAttractions=true,
                 Diary=new Diary(),
                 MaxPeople=8,
-
             }
         };
-        public static List<Host> hostList = new List<Host>();
     }
 }

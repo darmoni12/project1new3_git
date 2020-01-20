@@ -8,7 +8,7 @@ namespace BE
         public string PrivateName { get; set; }
         public string FamilyName { get; set; }
         public string MailAddress { get; set; }
-        public bool ActiveStatus = true;
+        public bool ActiveStatus;
         public MyDate RegistrationDate { get; set; }
         public MyDate EntryDate { get; set; }
         public MyDate ReleaseDate { get; set; }
