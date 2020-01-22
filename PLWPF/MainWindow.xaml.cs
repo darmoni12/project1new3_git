@@ -43,7 +43,7 @@ namespace PLWPF
 
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
-            ordersWin win = new ordersWin();
+            hostsWin win = new hostsWin();
             win.ShowDialog();
         }
     }

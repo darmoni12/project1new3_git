@@ -66,7 +66,7 @@ namespace BE
         {
             HostingUnit target = new HostingUnit();
             target.HostingUnitKey = original.HostingUnitKey;
-            target.Owner = original.Owner;
+            target.OwnerHostKey = original.OwnerHostKey;
             target.HostingUnitName = original.HostingUnitName;
             target.Diary = Clone(original.Diary);
             target.Area = original.Area;
@@ -106,6 +106,7 @@ namespace BE
             target.BankBranchDetails = Clone(original.BankBranchDetails);
             target.BankAccountNumber = original.BankAccountNumber;
             target.CollectionClearance = original.CollectionClearance;
+            target.Password = original.Password;
             return target;
         }
         public static BankBranch Clone(this BankBranch original)

@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PLWPF"
         mc:Ignorable="d"
-        Title="ordersWin" Height="300" Width="300">
+        Title="ordersWin" Height="326.531" Width="544.898">
     <Grid>
-        
+
     </Grid>
 </Window>

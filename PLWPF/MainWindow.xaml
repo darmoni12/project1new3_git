@@ -16,9 +16,9 @@
             <RowDefinition Height="100*"/>
             <RowDefinition Height="20*"/>
         </Grid.RowDefinitions>
-        <Button Content="addNewReq" Name="addNewReqB" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" Click="Button_Click" Grid.Row="1" Grid.Column="2"/>
-        <Button Content="units" Name="unitsB" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="Button_Click_1" Grid.Row="1" Grid.Column="1"/>
-        <Button Content="orders" Name="ordersB" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="Button_Click_2" Grid.Row="1"/>
+        <Button Content="הוסף דרישת אירוח" Name="addNewReqB" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" Click="Button_Click" Grid.Row="1" Grid.Column="2"/>
+        <Button Content="כניסת מנהל האתר" Name="unitsB" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="Button_Click_1" Grid.Row="1" Grid.Column="1"/>
+        <Button Content="כניסת מארח" Name="ordersB" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="Button_Click_2" Grid.Row="1"/>
         <Label Grid.ColumnSpan="3" Content="wellcome to our website" HorizontalAlignment="Left" Height="201" Margin="42,33,0,0" VerticalAlignment="Top" Width="400" FontSize="36" FontFamily="Segoe UI Emoji"/>
     </Grid>
 </Window>

@@ -26,7 +26,7 @@ namespace BE
 
         public override string ToString()
         {
-            return base.ToString();//not imlemented yet
+            return GuestRequestKey + ": " + PrivateName + " " + FamilyName;
         }
     }
 }

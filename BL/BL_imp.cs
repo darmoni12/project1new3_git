@@ -62,12 +62,12 @@ namespace BL
 
         public IEnumerable<IEnumerable<Host>> groupByNumOfUnits()
         {
-            return dal.getAllHosts().GroupBy(host => getNumOfUnits(host));
+            return dal.getAllHosts().GroupBy(host => getNumOfUnits(host.HostKey));
         }
 
-        public int getNumOfUnits(Host host)
+        public int getNumOfUnits(int hostKey)
         {
-            return dal.getAllUnits().Count(unit => unit.Owner.HostKey == host.HostKey);
+            return dal.getAllUnits().Count(unit => unit.OwnerHostKey == hostKey);
         }
 
         public IEnumerable<IEnumerable<GuestRequest>> groupReqByArea()
@@ -79,28 +79,42 @@ namespace BL
         {
             return dal.getAllUnits().GroupBy(unit => unit.Area);
         }
+        public void makeOrder(int requestKey,int unitKey)
+        {
+            Order order = new Order()
+            {
+                CreateDate = MyDate.today(),
+                GuestRequestKey = requestKey,
+                HostingUnitKey = unitKey,
+                Status = OrderStatus.MailSent
+            };
+            //sendMail(getRequest(requestKey).MailAddress, getHostingUnit(unitKey));
+            dal.addOrder(order);
 
+        }
+        public bool isInOrderList(GuestRequest request,IEnumerable<Order> orderList)
+        {
+            return orderList.Any(order => order.GuestRequestKey == request.GuestRequestKey);
+        }
         public int acceptOrder(Order order)
         {
-            if (dal.getAllOrder().FirstOrDefault(item => item.OrderKey == order.OrderKey).Status == OrderStatus.MailSent)
-            {
-                GuestRequest req = getRequest(order);
-                updateOrderStatus(order);
-                getHostingUnit(order).updateDiary(req.EntryDate, req.ReleaseDate);
-                req.ActiveStatus = false;
-                dal.updateRequest(req);
-                return calculateCommission(req);
-            }
-            return 0;
+            if (order.Status != OrderStatus.MailSent)
+                throw new orderStatusException("ההזמנה לא רלונטית להסכמה");
+            GuestRequest req = getRequest(order.GuestRequestKey);
+            updateOrderStatus(order);
+            getHostingUnit(order.HostingUnitKey).updateDiary(req.EntryDate, req.ReleaseDate);
+            req.ActiveStatus = false;
+            dal.updateRequest(req);
+            return calculateCommission(req);
         }
         
-        public GuestRequest getRequest(Order order)
+        public GuestRequest getRequest(int reqKey)
         {
-            return dal.getAllGuestRequest().FirstOrDefault(req => order.GuestRequestKey == req.GuestRequestKey);
+            return dal.getAllGuestRequest().FirstOrDefault(req => reqKey == req.GuestRequestKey);
         }
-        public HostingUnit getHostingUnit(Order order)
+        public HostingUnit getHostingUnit(int unitKey)
         {
-            return dal.getAllUnits().FirstOrDefault(unit => order.HostingUnitKey == unit.HostingUnitKey);
+            return dal.getAllUnits().FirstOrDefault(unit => unitKey == unit.HostingUnitKey);
         }
 
         public int calculateCommission(GuestRequest req)
@@ -109,11 +123,16 @@ namespace BL
         }
         public void rejectOrder(Order order)
         {
-            if (dal.getAllOrder().FirstOrDefault(item => item.OrderKey == order.OrderKey).Status == OrderStatus.MailSent)
+            if (order.Status == OrderStatus.MailSent)
             {
                 order.Status = OrderStatus.NoResponsCustomerClose;
                 dal.updateOrder(order);
             }
+        }
+        public void rejectOrderSp(Order order)
+        {
+            order.Status = OrderStatus.NoResponsCustomerClose;
+            dal.updateOrder(order);
         }
         public void updateOrderStatus(Order order)
         {
@@ -137,9 +156,17 @@ namespace BL
             if (getNumOfDays(req.EntryDate, req.ReleaseDate) > 0) ;//if not legal throw exeption
                 dal.addRequest(req);
         }
+        public Host getHost(int hostKey)
+        {
+            return dal.getAllHosts().FirstOrDefault(host => host.HostKey == hostKey);
+        }
         public void addHostingUnit(HostingUnit unit)
         {
             dal.addHostingUnit(unit);
+        }
+        public void addHost(Host host)
+        {
+            dal.addHost(host);
         }
         public void updateHostingUnit(HostingUnit unit)
         {
@@ -147,6 +174,10 @@ namespace BL
                 dal.updateHostingUnit(unit);
             else
                 throw new openOrdersException("update");
+        }
+        public void updateHost(Host host)
+        {
+            dal.updateHost(host);
         }
         public void removeHostingUnit(int id)
         {
@@ -167,5 +198,14 @@ namespace BL
         {
             return dal.getAllHosts();
         }
+        public IEnumerable<HostingUnit> getUnitsForHost(Host host)
+        {
+            return dal.getAllUnits().Where(unit => unit.OwnerHostKey == host.HostKey);
+        }
+        public IEnumerable<Order> getOrdersByUnitKey(int unitKey)
+        {
+            return dal.getAllOrder().Where(order => order.HostingUnitKey == unitKey);
+        }
     }
+
 }

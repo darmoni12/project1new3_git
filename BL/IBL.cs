@@ -29,6 +29,21 @@ namespace BL
         IEnumerable<Host> getAllHosts();
 
         void addHostingUnit(HostingUnit unit);
+        Host getHost(int hostKey);
+
+
+        void addHost(Host host);
+        void updateHost(Host host);
+        IEnumerable<HostingUnit> getUnitsForHost(Host host);
+        IEnumerable<Order> getOrdersByUnitKey(int unitKey);
+        void makeOrder(int requestKey, int unitKey);
+        bool isInOrderList(GuestRequest request, IEnumerable<Order> orderList);
+        int acceptOrder(Order order);
+        void rejectOrderSp(Order order);
+
+
+
+
 
 
 

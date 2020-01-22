@@ -82,34 +82,34 @@ namespace DS
                 Food =Food.HB,
             }
         };
-        public static List<Order> ordersList = new List<Order>()
-        {
-            new Order()
-            {
-                OrderKey=1,
-                GuestRequestKey=11,
-                HostingUnitKey=2222,
-                CreateDate =new MyDate(1,1,2020),
-                Status= OrderStatus.MailSent
-            },
-            new Order()
-            {
-                OrderKey=2,
-                GuestRequestKey=22,
-                HostingUnitKey=3,
-                CreateDate =new MyDate(1,1,2020),
-                Status= OrderStatus.MailSent
-            },
-            new Order()
-            {
-                OrderKey=4,
-                GuestRequestKey=5,
-                HostingUnitKey=2222,
-                CreateDate =new MyDate(1,1,2020),
-                Status= OrderStatus.MailSent
-            }
-        };
-        public static List<Host> hostList = new List<Host>()
+        public static List<Order> ordersList = new List<Order>();
+        //{
+        //    new Order()
+        //    {
+        //        OrderKey=10000001,
+        //        GuestRequestKey=1,
+        //        HostingUnitKey=2222,
+        //        CreateDate =new MyDate(1,1,2020),
+        //        Status= OrderStatus.MailSent
+        //    },
+        //    new Order()
+        //    {
+        //        OrderKey=2,
+        //        GuestRequestKey=22,
+        //        HostingUnitKey=3,
+        //        CreateDate =new MyDate(1,1,2020),
+        //        Status= OrderStatus.MailSent
+        //    },
+        //    new Order()
+        //    {
+        //        OrderKey=4,
+        //        GuestRequestKey=5,
+        //        HostingUnitKey=2222,
+        //        CreateDate =new MyDate(1,1,2020),
+        //        Status= OrderStatus.MailSent
+        //    }
+        //};
+        public static List<Host> hostsList = new List<Host>()
         {
             new Host()
             {
@@ -120,7 +120,8 @@ namespace DS
                 MailAddress="tgfd@gf",
                 PhoneNumber="6552",
                 CollectionClearance =true,
-                BankBranchDetails=new BankBranch(){BankName="gfdx",BankNumber=12,BranchAddress="ds",BranchCity="kdx",BranchNumber=978}
+                BankBranchDetails=new BankBranch(){BankName="gfdx",BankNumber=12,BranchAddress="ds",BranchCity="kdx",BranchNumber=978},
+                Password="123"
             },
             new Host()
             {
@@ -131,7 +132,8 @@ namespace DS
                 MailAddress="fg@gh",
                 PhoneNumber="6972",
                 CollectionClearance =true,
-                BankBranchDetails=new BankBranch(){BankName="ghj",BankNumber=13,BranchAddress="djhbs",BranchCity="kdjhnx",BranchNumber=588}
+                BankBranchDetails=new BankBranch(){BankName="ghj",BankNumber=13,BranchAddress="djhbs",BranchCity="kdjhnx",BranchNumber=588},
+                Password="456"
             }
         };
         public static List<HostingUnit> hostingUnitsList = new List<HostingUnit>()
@@ -140,7 +142,7 @@ namespace DS
             {
                 HostingUnitKey=10000001,
                 HostingUnitName="qwe",
-                Owner= hostList.FirstOrDefault(host=>host.HostKey==10000001),
+                OwnerHostKey=10000001,
                 FB=true,
                 HB=true,
                 BedOnly=true,
@@ -150,7 +152,7 @@ namespace DS
                 Type=HostingType.Hotel,
                 FreeParking=true,
                 FreeWifi=true,
-                Jacuzzi=false,
+                Jacuzzi=true,
                 Pool=true,
                 Garden=true,
                 ChildrensAttractions=true,
@@ -161,7 +163,7 @@ namespace DS
             {
                 HostingUnitKey=10000002,
                 HostingUnitName="unit",
-                Owner = hostList.FirstOrDefault(host=>host.HostKey==10000002),
+                OwnerHostKey =10000002,
                 FB=true,
                 HB=true,
                 BedOnly=true,

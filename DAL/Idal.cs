@@ -15,7 +15,11 @@ namespace DAL
         void updateHostingUnit(HostingUnit unit);
 
         void addOrder(Order order);
+        void addHost(Host host);
+
         void updateOrder(Order order);
+        void updateHost(Host host);
+
 
         IEnumerable<HostingUnit> getAllUnits();
         IEnumerable<GuestRequest> getAllGuestRequest();

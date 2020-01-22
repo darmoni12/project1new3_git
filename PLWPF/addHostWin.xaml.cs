@@ -11,18 +11,15 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using BE;
-using BL;
 
 namespace PLWPF
 {
     /// <summary>
-    /// Interaction logic for ordersWin.xaml
+    /// Interaction logic for addHostWin.xaml
     /// </summary>
-    public partial class ordersWin : Window
+    public partial class addHostWin : Window
     {
-        public IBL myBL = BLI.GetBL();
-        public ordersWin(HostingUnit unit)
+        public addHostWin()
         {
             InitializeComponent();
         }

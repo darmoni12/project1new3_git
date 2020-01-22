@@ -25,14 +25,15 @@ namespace PLWPF
         public unitsWin()
         {
             InitializeComponent();
-            lv.ItemsSource = myBL.getAllUnits();
+            unitsLV.ItemsSource = myBL.getAllUnits();
+            hostsLV.ItemsSource = myBL.getAllHosts();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)//remove
         {
             try
             {
-                HostingUnit unit = (HostingUnit)(lv.SelectedItem);
+                HostingUnit unit = (HostingUnit)(unitsLV.SelectedItem);
                 myBL.removeHostingUnit(unit.HostingUnitKey);
                 this.Close();
                 unitsWin win = new unitsWin();
@@ -48,24 +49,48 @@ namespace PLWPF
         {
             try
             {
-                HostingUnit unit = (HostingUnit)(lv.SelectedItem);
+                HostingUnit unit = (HostingUnit)(unitsLV.SelectedItem);
                 if (unit == null)
                     throw new NullReferenceException("לא נבחרה יחידת אירוח");
                 editUnitWin win = new editUnitWin(unit);
                 this.Close();
                 win.ShowDialog();
-             }
-            catch(Exception error)
+            }
+            catch (Exception error)
             {
                 MessageBox.Show(error.Message);
             }
         }
-
         private void Button_Click_2(object sender, RoutedEventArgs e)//add unit
         {
             addUnitWin win = new addUnitWin();
             this.Close();
             win.ShowDialog();
         }
+
+        private void Button_Click_3(object sender, RoutedEventArgs e)//add host
+        {
+            addHostWin win = new addHostWin();
+            this.Close();
+            win.ShowDialog();
+        }
+
+        private void Button_Click_4(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                Host host = (Host)(hostsLV.SelectedItem);
+                if (host == null)
+                    throw new NullReferenceException("לא נבחר מארח");
+                editHostWin win = new editHostWin(host);
+                this.Close();
+                win.ShowDialog();
+            }
+            catch (Exception error)
+            {
+                MessageBox.Show(error.Message);
+            }
+        }
     }
 }
+

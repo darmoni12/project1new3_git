@@ -1,0 +1,32 @@
+﻿<Window x:Class="PLWPF.hostsWin"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PLWPF"
+        mc:Ignorable="d"
+        Title="כניסת מארחים" Height="351.02" Width="573.469">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="194*"/>
+            <RowDefinition Height="47*"/>
+            <RowDefinition Height="80*"/>
+        </Grid.RowDefinitions>
+        <Button Content="הוסף מארח" Grid.Column="1" HorizontalAlignment="Stretch" Grid.Row="2" VerticalAlignment="Stretch" Click="Button_Click_1"/>
+        <ListView Name="lv" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.ColumnSpan="2" >
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <Button Content="כניסה" HorizontalAlignment="Stretch" Grid.Row="2" VerticalAlignment="Stretch" Click="Button_Click_2"/>
+        <PasswordBox Name="password" Height="47" Margin="10,0,143,0" Grid.Row="1" VerticalAlignment="Top" Width="Auto"/>
+        <Label Content="הכנס סיסמא" HorizontalAlignment="Left" Height="27" Margin="158,10,0,0" Grid.Row="1" VerticalAlignment="Top" Width="114"/>
+
+    </Grid>
+</Window>

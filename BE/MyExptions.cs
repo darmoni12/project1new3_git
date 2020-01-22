@@ -145,4 +145,43 @@ namespace BE
         {
         }
     }
+    [Serializable]
+    public class wrongPasswordException : Exception
+    {
+        public wrongPasswordException()
+        {
+        }
+
+        public wrongPasswordException(string message) : base(message)
+        {
+        }
+
+        public wrongPasswordException(string message, Exception innerException) : base(message, innerException)
+        {
+        }
+
+        protected wrongPasswordException(SerializationInfo info, StreamingContext context) : base(info, context)
+        {
+        }
+    }
+
+    [Serializable]
+    public class orderStatusException : Exception
+    {
+        public orderStatusException()
+        {
+        }
+
+        public orderStatusException(string message) : base(message)
+        {
+        }
+
+        public orderStatusException(string message, Exception innerException) : base(message, innerException)
+        {
+        }
+
+        protected orderStatusException(SerializationInfo info, StreamingContext context) : base(info, context)
+        {
+        }
+    }
 }

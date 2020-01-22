@@ -6,9 +6,9 @@ namespace BE
 {
     public class HostingUnit
     {
-        public int HostingUnitKey { get; set; }//
-        public Host Owner { get; set; }
-        public string HostingUnitName { get; set; }//
+        public int HostingUnitKey { get; set; }
+        public int OwnerHostKey { get; set; }
+        public string HostingUnitName { get; set; }
         public Diary Diary { get; set ; }
         public Area Area;
         public string Address { get; set; }
@@ -27,7 +27,7 @@ namespace BE
 
         public override string ToString()
         {
-            return HostingUnitKey + ": " + HostingUnitName + " of " + Owner;
+            return HostingUnitKey + ": " + HostingUnitName;
         }
 
         public bool checkEmpty(MyDate first,MyDate last)

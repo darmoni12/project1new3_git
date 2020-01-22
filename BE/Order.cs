@@ -13,7 +13,7 @@ namespace BE
         public MyDate CreateDate { get; set; }
         public override string ToString()
         {
-            return base.ToString();//not imlemented yet
+            return "order key: " + OrderKey + " status: " + Status;
         }
         
     }

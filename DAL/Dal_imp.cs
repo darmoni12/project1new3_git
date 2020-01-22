@@ -29,9 +29,21 @@ namespace DAL
         {
             if (CheckOrder(order.OrderKey))
                 throw new DuplicateIdException("order", order.OrderKey);
+            order.OrderKey = Configuration.OrderSerialNum;
             DataSource.ordersList.Add(Cloning.Clone(order));
         }
 
+        public bool CheckHost(int id)
+        {
+            return DataSource.hostsList.Any(host => host.HostKey == id);
+        }
+        public void addHost(Host host)
+        {
+            if (CheckHost(host.HostKey))
+                throw new DuplicateIdException("host", host.HostKey);
+            host.HostKey = Configuration.HostSerialNum;
+            DataSource.hostsList.Add(Cloning.Clone(host));
+        }
         public bool CheckRequest(int id)
         {
             return DataSource.requestsList.Any(req => req.GuestRequestKey == id);
@@ -97,7 +109,7 @@ namespace DAL
 
         public IEnumerable<Host> getAllHosts()
         {
-            return from host in DataSource.hostList
+            return from host in DataSource.hostsList
                    select Cloning.Clone(host);
         }
 
@@ -116,7 +128,9 @@ namespace DAL
             int count = DataSource.ordersList.RemoveAll(item => item.OrderKey == order.OrderKey);
             if (count == 0)
                 throw new MissingIdException("order", order.OrderKey);
-            addOrder(order);
+            if (CheckOrder(order.OrderKey))
+                throw new DuplicateIdException("order", order.OrderKey);
+            DataSource.ordersList.Add(Cloning.Clone(order));
         }
 
         public void updateRequest(GuestRequest request)
@@ -124,7 +138,18 @@ namespace DAL
             int count = DataSource.requestsList.RemoveAll(item => item.GuestRequestKey == request.GuestRequestKey);
             if (count == 0)
                 throw new MissingIdException("request", request.GuestRequestKey);
-            addRequest(request);
+            if (CheckRequest(request.GuestRequestKey))
+                throw new DuplicateIdException("request", request.GuestRequestKey);
+            DataSource.requestsList.Add(Cloning.Clone(request));
+        }
+        public void updateHost(Host host)
+        {
+            int count = DataSource.hostsList.RemoveAll(item => item.HostKey == host.HostKey);
+            if (count == 0)
+                throw new MissingIdException("host", host.HostKey);
+            if (CheckHost(host.HostKey))
+                throw new DuplicateIdException("host", host.HostKey);
+            DataSource.hostsList.Add(Cloning.Clone(host));
         }
     }
 }

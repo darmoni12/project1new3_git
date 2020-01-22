@@ -54,11 +54,23 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="addHostWin.xaml.cs">
+      <DependentUpon>addHostWin.xaml</DependentUpon>
+    </Compile>
     <Compile Include="addUnitWin.xaml.cs">
       <DependentUpon>addUnitWin.xaml</DependentUpon>
     </Compile>
+    <Compile Include="editHostWin.xaml.cs">
+      <DependentUpon>editHostWin.xaml</DependentUpon>
+    </Compile>
     <Compile Include="editUnitWin.xaml.cs">
       <DependentUpon>editUnitWin.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="hostsEnterWin.xaml.cs">
+      <DependentUpon>hostsEnterWin.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="hostWin.xaml.cs">
+      <DependentUpon>hostWin.xaml</DependentUpon>
     </Compile>
     <Compile Include="ordersWin.xaml.cs">
       <DependentUpon>ordersWin.xaml</DependentUpon>
@@ -66,6 +78,10 @@
     <Compile Include="unitsWin.xaml.cs">
       <DependentUpon>unitsWin.xaml</DependentUpon>
     </Compile>
+    <Page Include="addHostWin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="addNewReqWin.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -74,7 +90,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="editHostWin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="editUnitWin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="hostsEnterWin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="hostWin.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

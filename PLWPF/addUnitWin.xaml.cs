@@ -36,14 +36,14 @@ namespace PLWPF
             {
                 HostingUnit Unit = new HostingUnit();
                 Unit.Diary = new Diary();
-                Unit.Owner = (Host)ownerCB.SelectedItem;
+                Unit.OwnerHostKey = ((Host)ownerCB.SelectedItem).HostKey;
                 Unit.Area = (Area)areaCB.SelectedItem;
                 Unit.Type = (HostingType)typeCB.SelectedItem;
                 if(unitNameTB.Text=="")
-                    throw 
+                    throw new textExeption("unit name");
                 Unit.HostingUnitName = unitNameTB.Text;
                 if(addressTB.Text=="")
-                    throw
+                    throw new textExeption("address");
                 Unit.Address = addressTB.Text;
                 Unit.MaxPeople = int.Parse(maxPeopleTB.Text);
                 Unit.Jacuzzi = (bool)jacuzziCB.IsChecked;

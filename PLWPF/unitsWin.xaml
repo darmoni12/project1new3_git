@@ -7,10 +7,32 @@
         mc:Ignorable="d"
         Title="unitsWin" Height="435.185" Width="722.222">
     <Grid>
-        <Button Content="add" HorizontalAlignment="Left" Height="63" Margin="545,314,0,0" VerticalAlignment="Top" Width="120" Click="Button_Click_2"/>
-        <Button Content="edit" HorizontalAlignment="Left" Height="74" Margin="545,173,0,0" VerticalAlignment="Top" Width="120" Click="Button_Click_1"/>
-        <Button Content="remove" HorizontalAlignment="Left" Height="91" Margin="545,38,0,0" VerticalAlignment="Top" Width="120" Click="Button_Click"/>
-        <ListView Name="lv" HorizontalAlignment="Left" Height="339" Margin="33,38,0,0" VerticalAlignment="Top" Width="393">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="335*"/>
+            <RowDefinition Height="69*"/>
+        </Grid.RowDefinitions>
+        <Button Content="הוסף יחידה" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="Button_Click_2" Grid.Row="1" Grid.Column="3"/>
+        <Button Content="ערוך יחידה" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="Button_Click_1" Grid.Row="1" Grid.Column="1"/>
+        <Button Content="הסר יחידה" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="Button_Click" Grid.Row="1"/>
+        <Button Content="הצג דרישות" Grid.Column="2" HorizontalAlignment="Stretch" Grid.Row="1" VerticalAlignment="Stretch"/>
+        <Button Content="הוסף מארח" Grid.Column="5" HorizontalAlignment="Stretch" Grid.Row="1" VerticalAlignment="Stretch" Click="Button_Click_3"/>
+        <Button Content="ערוך מארח" Grid.Column="4" HorizontalAlignment="Stretch" Grid.Row="1" VerticalAlignment="Stretch" Click="Button_Click_4"/>
+        <ListView Name="unitsLV" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Grid.ColumnSpan="3">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <ListView Name="hostsLV" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="3" Grid.ColumnSpan="3">
             <ListView.View>
                 <GridView>
                     <GridViewColumn/>
