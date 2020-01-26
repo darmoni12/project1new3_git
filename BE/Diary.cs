@@ -3,12 +3,22 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
+using System.Xml.Serialization;
 
 namespace BE
 {
     public class Diary
     {
-        public bool[,] diary;
+        [XmlIgnore]
+        public bool[,] diary { get; set; }
+
+        [XmlArray("diary")]
+        public bool[] DiaryDto
+        {
+            get { return diary.Flatten(); }
+            set { diary = value.Expand(31); } //12 is the number of roes in the matrix
+        }
         /// <summary>
         /// ctor
         /// </summary>

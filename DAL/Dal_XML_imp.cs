@@ -13,27 +13,69 @@ namespace DAL
     class Dal_XML_imp : Idal
     {
         private XElement hostsRoot;
+        private XElement unitsRoot;
+        private XElement requestsRoot;
+        private XElement ordersRoot;
         private string hostsPath = @"HostsXml.xml";
+        private string unitsPath = @"UnitsXml.xml";
+        private string requestsPath = @"RequestsXml.xml";
+        private string ordersPath = @"OrdersXml.xml";
         public Dal_XML_imp()
         {
             if (!File.Exists(hostsPath))
                 CreateFileHosts();
             loadHosts();
+            if (!File.Exists(unitsPath))
+                CreateFileUnits();
+            loadUnits();
+            if (!File.Exists(requestsPath))
+                CreateFileRequests();
+            loadRequests();
+            if (!File.Exists(ordersPath))
+                CreateFileOrders();
+            loadOrders();
         }
         private void loadHosts()
         {
             hostsRoot = XElement.Load(hostsPath);
+        }
+        private void loadUnits()
+        {
+            unitsRoot = XElement.Load(unitsPath);
+        }
+        private void loadRequests()
+        {
+            requestsRoot = XElement.Load(requestsPath);
+        }
+        private void loadOrders()
+        {
+            ordersRoot = XElement.Load(ordersPath);
         }
         private void CreateFileHosts()
         {
             hostsRoot = new XElement("hosts");
             hostsRoot.Save(hostsPath);
         }
-
+        private void CreateFileUnits()
+        {
+            unitsRoot = new XElement("units");
+            unitsRoot.Save(unitsPath);
+        }
+        private void CreateFileRequests()
+        {
+            requestsRoot = new XElement("requests");
+            requestsRoot.Save(requestsPath);
+        }
+        private void CreateFileOrders()
+        {
+            ordersRoot = new XElement("orders");
+            ordersRoot.Save(ordersPath);
+        }
         public void addHost(Host host)
         {
-            if (!IsExistHost(host.HostKey))
+            if (IsExistHost(host.HostKey))
                 throw new DuplicateIdException("host", host.HostKey);
+            host.HostKey = Configuration.HostSerialNum;
             hostsRoot.Add(new XElement("host",
                                       new XElement("HostKey", host.HostKey),
                                       new XElement("PrivateName", host.PrivateName),
@@ -57,27 +99,42 @@ namespace DAL
 
         public void addHostingUnit(HostingUnit unit)
         {
-            throw new NotImplementedException();
+            if (IsExistUnit(unit.HostingUnitKey))
+                throw new DuplicateIdException("hosting unit", unit.HostingUnitKey);
+            unit.HostingUnitKey = Configuration.HostingUnitSerialNum;
+            List<HostingUnit> unitslist = LoadFromXML<List<HostingUnit>>(unitsPath);
+            unitslist.Add(unit);
+            SaveToXML(unitslist, unitsPath);
         }
 
         public void addOrder(Order order)
         {
-            throw new NotImplementedException();
+            if (IsExistOrder(order.OrderKey))
+                throw new DuplicateIdException("order", order.OrderKey);
+            order.OrderKey = Configuration.OrderSerialNum;
+            List<Order> orderslist = LoadFromXML<List<Order>>(ordersPath);
+            orderslist.Add(order);
+            SaveToXML(orderslist, ordersPath);
         }
 
         public void addRequest(GuestRequest request)
         {
-            throw new NotImplementedException();
+            if (IsExistRequest(request.GuestRequestKey))
+                throw new DuplicateIdException("request", request.GuestRequestKey);
+            request.GuestRequestKey = Configuration.GuestRequestSerialNum;
+            List<GuestRequest> list = LoadFromXML<List<GuestRequest>>(requestsPath);
+            list.Add(request);
+            SaveToXML(list, requestsPath);
         }
 
         public IEnumerable<BankBranch> getAllBranches()
         {
-            throw new NotImplementedException();
+            throw new NotImplementedException();/////////////////////////////
         }
 
         public IEnumerable<GuestRequest> getAllGuestRequest()
         {
-            throw new NotImplementedException();
+            return LoadFromXML<IEnumerable<GuestRequest>>(requestsPath);
         }
 
         public IEnumerable<Host> getAllHosts()
@@ -94,33 +151,37 @@ namespace DAL
                         MailAddress = temp.Element("MailAddress").Value,
                         BankBranchDetails = new BankBranch()
                         {
-                            BankNumber = Int32.Parse(temp.Element("BankNumber").Value),
-                            BankName = temp.Element("BankName").Value,
-                            BranchNumber = Int32.Parse(temp.Element("BranchNumber").Value),
-                            BranchAddress = temp.Element("BranchAddress").Value,
-                            BranchCity = temp.Element("BranchCity").Value
+                            BankNumber = Int32.Parse(temp.Element("BankBranchDetails").Element("BankNumber").Value),
+                            BankName = temp.Element("BankBranchDetails").Element("BankName").Value,
+                            BranchNumber = Int32.Parse(temp.Element("BankBranchDetails").Element("BranchNumber").Value),
+                            BranchAddress = temp.Element("BankBranchDetails").Element("BranchAddress").Value,
+                            BranchCity = temp.Element("BankBranchDetails").Element("BranchCity").Value
                         },
                         BankAccountNumber = Int32.Parse(temp.Element("BankAccountNumber").Value),
                         CollectionClearance = bool.Parse(temp.Element("CollectionClearance").Value),
                         Password = temp.Element("Password").Value
                     }
-                   );
+                   ).ToList();
             return list;
         }
 
         public IEnumerable<Order> getAllOrder()
         {
-            throw new NotImplementedException();
+            return LoadFromXML<IEnumerable<Order>>(ordersPath);
         }
 
         public IEnumerable<HostingUnit> getAllUnits()
         {
-            throw new NotImplementedException();
+            return LoadFromXML<List<HostingUnit>>(unitsPath);
         }
 
         public void removeHostingUnit(int id)
         {
-            throw new NotImplementedException();
+            if (!IsExistUnit(id))
+                throw new MissingIdException("hosting unit", id);
+            List<HostingUnit> list= LoadFromXML<List<HostingUnit>>(unitsPath);
+            list.Remove(list.FirstOrDefault(unit => unit.HostingUnitKey == id));
+            SaveToXML(list, unitsPath);
         }
 
         public void updateHost(Host host)
@@ -153,20 +214,70 @@ namespace DAL
                                 select temp).FirstOrDefault();
             return element != null;
         }
-
+        private bool IsExistUnit(int id)
+        {
+            XElement element = (from temp in unitsRoot.Elements()
+                                where int.Parse(temp.Element("UnitKey").Value) == id
+                                select temp).FirstOrDefault();
+            return element != null;
+        }
+        private bool IsExistRequest(int id)
+        {
+            XElement element = (from temp in requestsRoot.Elements()
+                                where int.Parse(temp.Element("RequestKey").Value) == id
+                                select temp).FirstOrDefault();
+            return element != null;
+        }
+        private bool IsExistOrder(int id)
+        {
+            XElement element = (from temp in ordersRoot.Elements()
+                                where int.Parse(temp.Element("OrderKey").Value) == id
+                                select temp).FirstOrDefault();
+            return element != null;
+        }
         public void updateHostingUnit(HostingUnit unit)
         {
-            throw new NotImplementedException();
+            if (!IsExistUnit(unit.HostingUnitKey))
+                throw new MissingIdException("hosting unit", unit.HostingUnitKey);
+            removeHostingUnit(unit.HostingUnitKey);
+            List<HostingUnit> unitslist = LoadFromXML<List<HostingUnit>>(unitsPath);
+            unitslist.Add(unit);
+            SaveToXML(unitslist, unitsPath);
         }
 
         public void updateOrder(Order order)
         {
-            throw new NotImplementedException();
+            if (!IsExistOrder(order.OrderKey))
+                throw new MissingIdException("order", order.OrderKey);
+            List<Order> list = LoadFromXML<List<Order>>(ordersPath);
+            list.RemoveAll(item => order.OrderKey == item.OrderKey);
+            list.Add(order);
+            SaveToXML(list,ordersPath);
         }
 
         public void updateRequest(GuestRequest request)
         {
-            throw new NotImplementedException();
+            if (!IsExistRequest(request.GuestRequestKey))
+                throw new MissingIdException("request", request.GuestRequestKey);
+            List<GuestRequest> list = LoadFromXML<List<GuestRequest>>(requestsPath);
+            list.RemoveAll(item => item.GuestRequestKey == request.GuestRequestKey);
+            list.Add(request);
+            SaveToXML(list, requestsPath);
+        }
+        public static void SaveToXML<T>(T source, string path)
+        {
+            FileStream file = new FileStream(path, FileMode.Create);
+            XmlSerializer xmlSer = new XmlSerializer(source.GetType());
+            xmlSer.Serialize(file, source);
+            file.Close();
+        }
+        public static T LoadFromXML<T>(string path)
+        {
+            FileStream file = new FileStream(path, FileMode.Open);
+            XmlSerializer xmlSer = new XmlSerializer(typeof(T));
+            T result = (T)xmlSer.Deserialize(file);
+            file.Close();
+            return result;
         }
     }
 }

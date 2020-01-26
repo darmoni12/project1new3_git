@@ -52,6 +52,7 @@ namespace PLWPF
                     throw new textExeption("Bank Account Number");
                 host.CollectionClearance = true;
                 myBL.addHost(host);
+                this.Close();
             }
             catch (Exception error)
             {

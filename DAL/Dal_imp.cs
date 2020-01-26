@@ -63,7 +63,7 @@ namespace DAL
                 throw new MissingIdException("hostingUnit", id);
         }
 
-        public List<BankBranch> getAllBranches()
+        public IEnumerable<BankBranch> getAllBranches()
         {
             return new List<BankBranch>()
             {

@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using BE;
 using DAL;
+using System.Net.Mail;
 
 namespace BL
 {
@@ -88,9 +89,33 @@ namespace BL
                 HostingUnitKey = unitKey,
                 Status = OrderStatus.MailSent
             };
-            //sendMail(getRequest(requestKey).MailAddress, getHostingUnit(unitKey));
+            sendMail(getRequest(requestKey).MailAddress, getHostingUnit(unitKey));
             dal.addOrder(order);
+        }
+        public void sendMail(string mailAddress, HostingUnit unit)
+        {
+            Host owner = getHost(unit.OwnerHostKey);
+            MailMessage mail = new MailMessage();//            כתובת הנמען)ניתן להוסיף יותר מאחד(
+            mail.To.Add(mailAddress);            //           הכתובת ממנה נשלח המייל //
+            mail.From = new MailAddress("dotNet5780.5029.7337@gmail.com");//           נושא ההודעה //
+            mail.Subject = "הזמנת יחידה";//         תוכן ההודעה )נניח שתוכן ההודעה בפורמט HTML //(
+            mail.Body = "יש לך הזמנה רלוונטית" + unit.ToString() + " ליצירת קשר " + owner.MailAddress + " " + owner.PhoneNumber + " " + owner.PrivateName;
+            //           הגדרה שתוכן ההודעה בפורמט HTML //
+            mail.IsBodyHtml = true;
 
+            //           יצירת עצם מסוג Smtp //
+            SmtpClient smtp = new SmtpClient();
+
+            //           הגדרת השרת של gmail //
+            smtp.Host = "smtp.gmail.com";
+            //          הגדרת פרטי הכניסה )שם משתמש וסיסמה(לחשבון ה gmail //
+
+            smtp.Credentials = new System.Net.NetworkCredential("dotNet5780.5029.7337@gmail.com", "idanyacov5780");
+            //          ע"פ דרישת השר, חובה לאפשר במקרה זה SSL //
+            smtp.EnableSsl = true;
+            
+            smtp.Send(mail);
+            
         }
         public bool isInOrderList(GuestRequest request,IEnumerable<Order> orderList)
         {
