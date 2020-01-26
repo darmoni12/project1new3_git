@@ -25,6 +25,6 @@ namespace DAL
         IEnumerable<GuestRequest> getAllGuestRequest();
         IEnumerable<Order> getAllOrder();
         IEnumerable<Host> getAllHosts();
-        List<BankBranch> getAllBranches();
+        IEnumerable<BankBranch> getAllBranches();
     }
 }

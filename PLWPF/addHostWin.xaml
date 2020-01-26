@@ -6,25 +6,27 @@
         xmlns:local="clr-namespace:PLWPF"
         mc:Ignorable="d"
         Title="addHostWin" Height="395.918" Width="712.245">
-    <Grid>
+    <Grid Name="addHostGrid">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <Label Content="first name" HorizontalAlignment="Left" Height="47" Margin="33,30,0,0" VerticalAlignment="Top" Width="104"/>
-        <Label Content="last name" HorizontalAlignment="Left" Height="47" Margin="33,82,0,0" VerticalAlignment="Top" Width="104"/>
-        <Label Content="phone number" HorizontalAlignment="Left" Height="47" Margin="33,134,0,0" VerticalAlignment="Top" Width="104" RenderTransformOrigin="0.449,2.304"/>
-        <Label Content="mail address" HorizontalAlignment="Left" Height="47" Margin="33,181,0,0" VerticalAlignment="Top" Width="104"/>
+        <Label Content="first name" HorizontalAlignment="Left" Height="47" Margin="38,86,0,0" VerticalAlignment="Top" Width="104"/>
+        <Label Content="last name" HorizontalAlignment="Left" Height="47" Margin="38,138,0,0" VerticalAlignment="Top" Width="104"/>
+        <Label Content="phone number" HorizontalAlignment="Left" Height="47" Margin="38,190,0,0" VerticalAlignment="Top" Width="104" RenderTransformOrigin="0.449,2.304"/>
+        <Label Content="mail address" HorizontalAlignment="Left" Height="47" Margin="38,237,0,0" VerticalAlignment="Top" Width="104"/>
         <Label Content="bank brunch" HorizontalAlignment="Left" Height="47" Margin="41,35,0,0" VerticalAlignment="Top" Width="104" Grid.Column="1"/>
         <Label Content="bank account number" HorizontalAlignment="Left" Height="47" Margin="41,87,0,0" VerticalAlignment="Top" Width="134" Grid.Column="1"/>
         <CheckBox Content="CollectionClearance" HorizontalAlignment="Left" Height="53" Margin="41,169,0,0" VerticalAlignment="Top" Width="183" Grid.Column="1" RenderTransformOrigin="0.856,0.878" IsChecked="True" IsEnabled="False"/>
-        <TextBox HorizontalAlignment="Left" Height="42" Margin="142,35,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="95"/>
-        <TextBox HorizontalAlignment="Left" Height="42" Margin="142,87,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="95"/>
-        <TextBox HorizontalAlignment="Left" Height="47" Margin="142,134,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="95"/>
-        <TextBox HorizontalAlignment="Left" Height="42" Margin="142,186,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="95"/>
-        <TextBox Grid.Column="1" HorizontalAlignment="Left" Height="42" Margin="175,87,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="74"/>
-        <ComboBox Grid.Column="1" HorizontalAlignment="Left" Height="42" Margin="150,35,0,0" VerticalAlignment="Top" Width="99"/>
-        <Button Content="add" Grid.Column="1" HorizontalAlignment="Left" Height="70" Margin="62,242,0,0" VerticalAlignment="Top" Width="162"/>
+        <TextBox Text="{Binding Path=PrivateName}" HorizontalAlignment="Left" Height="42" Margin="216,91,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="96"/>
+        <TextBox Text="{Binding Path=FamilyName}" HorizontalAlignment="Left" Height="42" Margin="216,143,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="96"/>
+        <TextBox Text="{Binding Path=PhoneNumber}" HorizontalAlignment="Left" Height="47" Margin="216,190,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="96"/>
+        <TextBox Text="{Binding Path=MailAddress}" HorizontalAlignment="Left" Height="42" Margin="216,242,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="96"/>
+        <TextBox Text="{Binding Path=BankAccountNumber}" Grid.Column="1" HorizontalAlignment="Left" Height="42" Margin="175,87,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="74"/>
+        <ComboBox Name="cb" Grid.Column="1" HorizontalAlignment="Left" Height="42" Margin="150,35,0,0" VerticalAlignment="Top" Width="99"/>
+        <Button Content="add" Grid.Column="1" HorizontalAlignment="Left" Height="70" Margin="62,242,0,0" VerticalAlignment="Top" Width="162" Click="Button_Click"/>
+        <Label Content="password" HorizontalAlignment="Left" Height="42" Margin="38,35,0,0" VerticalAlignment="Top" Width="92"/>
+        <PasswordBox Name="pass" HorizontalAlignment="Left" Height="42" Margin="216,35,0,0" VerticalAlignment="Top" Width="96"/>
 
     </Grid>
 </Window>

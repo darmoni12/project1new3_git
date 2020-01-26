@@ -41,7 +41,7 @@ namespace BE
     public class MissingIdException : Exception
     {
         private string v;
-        private int hostingUnitKey;
+        private int Key;
 
         public MissingIdException()
         {
@@ -51,10 +51,10 @@ namespace BE
         {
         }
 
-        public MissingIdException(string v, int hostingUnitKey)
+        public MissingIdException(string v, int Key)
         {
             this.v = v;
-            this.hostingUnitKey = hostingUnitKey;
+            this.Key = Key;
         }
 
         public MissingIdException(string message, Exception innerException) : base(message, innerException)

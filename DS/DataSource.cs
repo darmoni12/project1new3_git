@@ -20,7 +20,6 @@ namespace DS
                 RegistrationDate=new MyDate(1,1,2020) ,                   
                 EntryDate=new MyDate(2,1,2020),
                 ReleaseDate=new MyDate(5,1,2020),
-                
                 ActiveStatus=true,
                 Adults=2,
                 Children=2,
@@ -83,32 +82,6 @@ namespace DS
             }
         };
         public static List<Order> ordersList = new List<Order>();
-        //{
-        //    new Order()
-        //    {
-        //        OrderKey=10000001,
-        //        GuestRequestKey=1,
-        //        HostingUnitKey=2222,
-        //        CreateDate =new MyDate(1,1,2020),
-        //        Status= OrderStatus.MailSent
-        //    },
-        //    new Order()
-        //    {
-        //        OrderKey=2,
-        //        GuestRequestKey=22,
-        //        HostingUnitKey=3,
-        //        CreateDate =new MyDate(1,1,2020),
-        //        Status= OrderStatus.MailSent
-        //    },
-        //    new Order()
-        //    {
-        //        OrderKey=4,
-        //        GuestRequestKey=5,
-        //        HostingUnitKey=2222,
-        //        CreateDate =new MyDate(1,1,2020),
-        //        Status= OrderStatus.MailSent
-        //    }
-        //};
         public static List<Host> hostsList = new List<Host>()
         {
             new Host()

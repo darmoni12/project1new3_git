@@ -14,7 +14,7 @@ namespace BE
 
         public override string ToString()
         {
-            return base.ToString();
+            return BankName + " " + BankNumber + " BranchNumber: " + BranchNumber;
         }
     }
 }

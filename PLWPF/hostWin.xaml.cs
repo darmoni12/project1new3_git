@@ -42,14 +42,12 @@ namespace PLWPF
         private void Button_Click(object sender, RoutedEventArgs e)//edit host
         {
             editHostWin win = new editHostWin(myHost);
-            this.Close();
             win.ShowDialog();
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)//add unit
         {
             addUnitWin win = new addUnitWin();
-            this.Close();
             win.ShowDialog();
         }
 
@@ -61,7 +59,6 @@ namespace PLWPF
                 if (unit == null)
                     throw new NullReferenceException("לא נבחרה יחידת אירוח");
                 editUnitWin win = new editUnitWin(unit);
-                this.Close();
                 win.ShowDialog();
             }
             catch (Exception error)
@@ -78,7 +75,7 @@ namespace PLWPF
                 if (unit == null)
                     throw new NullReferenceException("לא נבחרה יחידת אירוח");
                 myBL.removeHostingUnit(unit.HostingUnitKey);
-                hostsWin win = new hostsWin();
+                hostWin win = new hostWin(myHost);
                 this.Close();
                 win.ShowDialog();
             }

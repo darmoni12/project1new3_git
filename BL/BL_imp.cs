@@ -206,6 +206,28 @@ namespace BL
         {
             return dal.getAllOrder().Where(order => order.HostingUnitKey == unitKey);
         }
+        public List<BankBranch> getAllBankBranch()
+        {
+            return new List<BankBranch>()
+            {
+                new BankBranch()
+                {
+                    BankName="hapoalim",
+                    BankNumber=12,
+                    BranchAddress="pisgat zeev",
+                    BranchCity="jerozalem",
+                    BranchNumber=669
+                },
+                new BankBranch()
+                {
+                    BankName="discont",
+                    BankNumber=13,
+                    BranchAddress="givat zeev",
+                    BranchCity="jerozalem",
+                    BranchNumber=679
+                }
+            };
+        }
     }
 
 }
