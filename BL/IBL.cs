@@ -40,7 +40,7 @@ namespace BL
         bool isInOrderList(GuestRequest request, IEnumerable<Order> orderList);
         int acceptOrder(Order order);
         void rejectOrderSp(Order order);
-        List<BankBranch> getAllBankBranch();
+        IEnumerable<BankBranch> getAllBankBranch();
 
 
 

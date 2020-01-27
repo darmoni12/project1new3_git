@@ -7,6 +7,9 @@ using System.Xml.Serialization;
 using System.IO;
 using System.Xml.Linq;
 using BE;
+using System.ComponentModel;
+using System.Threading;
+using System.Net;
 
 namespace DAL
 {
@@ -16,10 +19,12 @@ namespace DAL
         private XElement unitsRoot;
         private XElement requestsRoot;
         private XElement ordersRoot;
-        private string hostsPath = @"HostsXml.xml";
-        private string unitsPath = @"UnitsXml.xml";
-        private string requestsPath = @"RequestsXml.xml";
-        private string ordersPath = @"OrdersXml.xml";
+        private XElement atmsRoot;
+        private const string hostsPath = @"HostsXml.xml";
+        private const string unitsPath = @"UnitsXml.xml";
+        private const string requestsPath = @"RequestsXml.xml";
+        private const string ordersPath = @"OrdersXml.xml";
+        private const string atmsPath = @"atmsXml.xml";
         public Dal_XML_imp()
         {
             if (!File.Exists(hostsPath))
@@ -34,6 +39,43 @@ namespace DAL
             if (!File.Exists(ordersPath))
                 CreateFileOrders();
             loadOrders();
+            if (File.Exists(atmsPath))
+                atmsRoot = XElement.Load(atmsPath);
+            BackgroundWorker atmworker = new BackgroundWorker();
+            atmworker.DoWork += atmload;
+            //atmworker.ProgressChanged += Worker_ProgressChanged;
+            atmworker.WorkerReportsProgress = true;
+            atmworker.RunWorkerAsync();
+        }
+        private void atmload(object sender, DoWorkEventArgs e)
+        {
+            while (true)
+            {
+                try
+                {
+                    WebClient wc = new WebClient();
+                    try
+                    {
+                        string xmlServerPath = @"http://www.boi.org.il/he/BankingSupervision/BanksAndBranchLocations/Lists/BoiBankBranchesDocs/atm.xml";
+                        wc.DownloadFile(xmlServerPath, atmsPath);
+                    }
+                    catch (Exception)
+                    {
+                        string xmlServerPath = @"http://www.jct.ac.il/~coshri/atm.xml";
+                        wc.DownloadFile(xmlServerPath, atmsPath);
+                    }
+                    finally
+                    {
+                        wc.Dispose();
+                        atmsRoot = XElement.Load(atmsPath);
+                    }
+                    break;
+                }
+                catch (Exception)
+                {
+                    Thread.Sleep(2000);
+                }
+            }
         }
         private void loadHosts()
         {
@@ -129,7 +171,18 @@ namespace DAL
 
         public IEnumerable<BankBranch> getAllBranches()
         {
-            throw new NotImplementedException();/////////////////////////////
+            IEnumerable<BankBranch> list = new List<BankBranch>();
+            list = (from temp in atmsRoot.Elements()
+                    select new BankBranch()
+                    {
+                        BankNumber = Int32.Parse(temp.Element("קוד_בנק").Value),
+                        BankName = temp.Element("שם_בנק").Value,
+                        BranchNumber = Int32.Parse(temp.Element("קוד_סניף").Value),
+                        BranchAddress = temp.Element("כתובת_ה-ATM").Value,
+                        BranchCity = temp.Element("ישוב").Value
+                    }
+                   ).ToList();
+            return list;
         }
 
         public IEnumerable<GuestRequest> getAllGuestRequest()
@@ -139,7 +192,6 @@ namespace DAL
 
         public IEnumerable<Host> getAllHosts()
         {
-            loadHosts();
             IEnumerable<Host> list = new List<Host>();
             list = (from temp in hostsRoot.Elements()
                     select new Host()

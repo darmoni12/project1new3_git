@@ -7,12 +7,31 @@ using System.Threading.Tasks;
 using BE;
 using DAL;
 using System.Net.Mail;
+using System.ComponentModel;
+using System.Threading;
 
 namespace BL
 {
     public class BL_imp : IBL
     {
         Idal dal = Dali.GetDal();
+        public BL_imp()
+        {
+            //Thread updateOrderThread = new Thread(updateOrder);
+            //updateOrderThread.Start();
+        }
+        private void updateOrder()
+        {
+            while(true)
+            {
+                foreach (Order order in dal.getAllOrder())
+                {
+                    if (getNumOfDays(order.CreateDate) > 31)
+                        rejectOrder(order);
+                }
+                Thread.Sleep(86400000);//a day
+            }
+        }
         public IEnumerable<HostingUnit> getEmptyUnits(MyDate date, int numOfDays)
         {
             MyDate last = Cloning.Clone(date);
@@ -89,33 +108,62 @@ namespace BL
                 HostingUnitKey = unitKey,
                 Status = OrderStatus.MailSent
             };
-            sendMail(getRequest(requestKey).MailAddress, getHostingUnit(unitKey));
+            BackgroundWorker mailworker = new BackgroundWorker();
+            mailworker.DoWork += new DoWorkEventHandler(sendMail);
+            mailworker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(worker_RunWorkerCompleted);
+
+            object[] parameters = new object[] { getRequest(requestKey).MailAddress, getHostingUnit(unitKey) };
+            // This runs the event on new background worker thread.
+            mailworker.RunWorkerAsync(parameters);
+            //timerworker.ProgressChanged += Worker_ProgressChanged;
+            //timerworker.WorkerReportsProgress = true;
+
+
+            //sendMail(getRequest(requestKey).MailAddress, getHostingUnit(unitKey));
             dal.addOrder(order);
         }
-        public void sendMail(string mailAddress, HostingUnit unit)
+        public void sendMail(object sender, DoWorkEventArgs e)
         {
-            Host owner = getHost(unit.OwnerHostKey);
-            MailMessage mail = new MailMessage();//            כתובת הנמען)ניתן להוסיף יותר מאחד(
-            mail.To.Add(mailAddress);            //           הכתובת ממנה נשלח המייל //
-            mail.From = new MailAddress("dotNet5780.5029.7337@gmail.com");//           נושא ההודעה //
-            mail.Subject = "הזמנת יחידה";//         תוכן ההודעה )נניח שתוכן ההודעה בפורמט HTML //(
-            mail.Body = "יש לך הזמנה רלוונטית" + unit.ToString() + " ליצירת קשר " + owner.MailAddress + " " + owner.PhoneNumber + " " + owner.PrivateName;
-            //           הגדרה שתוכן ההודעה בפורמט HTML //
-            mail.IsBodyHtml = true;
+            while (true)
+            {
+                try
+                {
+                    object[] parameters = e.Argument as object[];
+                    string mailAddress = (string)parameters[0];
+                    HostingUnit unit = (HostingUnit)parameters[1];
+                    Host owner = getHost(unit.OwnerHostKey);
+                    MailMessage mail = new MailMessage();//            כתובת הנמען)ניתן להוסיף יותר מאחד(
+                    mail.To.Add(mailAddress);            //           הכתובת ממנה נשלח המייל //
+                    mail.From = new MailAddress("dotNet5780.5029.7337@gmail.com");//           נושא ההודעה //
+                    mail.Subject = "הזמנת יחידה";//         תוכן ההודעה )נניח שתוכן ההודעה בפורמט HTML //(
+                    mail.Body = "יש לך הזמנה רלוונטית" + unit.ToString() + " ליצירת קשר " + owner.MailAddress + " " + owner.PhoneNumber + " " + owner.PrivateName;
+                    //           הגדרה שתוכן ההודעה בפורמט HTML //
+                    mail.IsBodyHtml = true;
 
-            //           יצירת עצם מסוג Smtp //
-            SmtpClient smtp = new SmtpClient();
+                    //           יצירת עצם מסוג Smtp //
+                    SmtpClient smtp = new SmtpClient();
 
-            //           הגדרת השרת של gmail //
-            smtp.Host = "smtp.gmail.com";
-            //          הגדרת פרטי הכניסה )שם משתמש וסיסמה(לחשבון ה gmail //
+                    //           הגדרת השרת של gmail //
+                    smtp.Host = "smtp.gmail.com";
+                    //          הגדרת פרטי הכניסה )שם משתמש וסיסמה(לחשבון ה gmail //
 
-            smtp.Credentials = new System.Net.NetworkCredential("dotNet5780.5029.7337@gmail.com", "idanyacov5780");
-            //          ע"פ דרישת השר, חובה לאפשר במקרה זה SSL //
-            smtp.EnableSsl = true;
-            
-            smtp.Send(mail);
-            
+                    smtp.Credentials = new System.Net.NetworkCredential("dotNet5780.5029.7337@gmail.com", "idanyacov5780");
+                    //          ע"פ דרישת השר, חובה לאפשר במקרה זה SSL //
+                    smtp.EnableSsl = true;
+
+                    smtp.Send(mail);
+                    break;
+                }
+                catch(Exception)
+                {
+                    Thread.Sleep(2000);
+                }
+            }
+            e.Result = true;//for the thred
+        }
+        private void worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            object result = e.Result;                        
         }
         public bool isInOrderList(GuestRequest request,IEnumerable<Order> orderList)
         {
@@ -231,27 +279,28 @@ namespace BL
         {
             return dal.getAllOrder().Where(order => order.HostingUnitKey == unitKey);
         }
-        public List<BankBranch> getAllBankBranch()
+        public IEnumerable<BankBranch> getAllBankBranch()
         {
-            return new List<BankBranch>()
-            {
-                new BankBranch()
-                {
-                    BankName="hapoalim",
-                    BankNumber=12,
-                    BranchAddress="pisgat zeev",
-                    BranchCity="jerozalem",
-                    BranchNumber=669
-                },
-                new BankBranch()
-                {
-                    BankName="discont",
-                    BankNumber=13,
-                    BranchAddress="givat zeev",
-                    BranchCity="jerozalem",
-                    BranchNumber=679
-                }
-            };
+            //return new List<BankBranch>()
+            //{
+            //    new BankBranch()
+            //    {
+            //        BankName="hapoalim",
+            //        BankNumber=12,
+            //        BranchAddress="pisgat zeev",
+            //        BranchCity="jerozalem",
+            //        BranchNumber=669
+            //    },
+            //    new BankBranch()
+            //    {
+            //        BankName="discont",
+            //        BankNumber=13,
+            //        BranchAddress="givat zeev",
+            //        BranchCity="jerozalem",
+            //        BranchNumber=679
+            //    }
+            //};
+            return dal.getAllBranches();
         }
     }
 
