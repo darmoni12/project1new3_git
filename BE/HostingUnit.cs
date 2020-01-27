@@ -47,7 +47,7 @@ namespace BE
             {
                 Diary[temp] = true;
             }
-        }
+        }//
         public bool fitCheck(GuestRequest req)
         {
             if (req.ActiveStatus == false)
