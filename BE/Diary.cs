@@ -8,6 +8,7 @@ using System.Xml.Serialization;
 
 namespace BE
 {
+    [Serializable]
     public class Diary
     {
         [XmlIgnore]
@@ -17,7 +18,7 @@ namespace BE
         public bool[] DiaryDto
         {
             get { return diary.Flatten(); }
-            set { diary = value.Expand(31); } //12 is the number of roes in the matrix
+            set { diary = value.Expand(12); } //12 is the number of roes in the matrix
         }
         /// <summary>
         /// ctor

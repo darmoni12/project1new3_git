@@ -17,8 +17,8 @@ namespace BL
         Idal dal = Dali.GetDal();
         public BL_imp()
         {
-            //Thread updateOrderThread = new Thread(updateOrder);
-            //updateOrderThread.Start();
+            Thread updateOrderThread = new Thread(updateOrder);//פעם ביום מעדכן הזמנות רלוונטיות
+            updateOrderThread.Start();
         }
         private void updateOrder()
         {
@@ -26,8 +26,12 @@ namespace BL
             {
                 foreach (Order order in dal.getAllOrder())
                 {
-                    if (getNumOfDays(order.CreateDate) > 31)
-                        rejectOrder(order);
+                    try
+                    {
+                        if (getNumOfDays(order.CreateDate) > 31)
+                            rejectOrder(order);
+                    }
+                    catch (Exception) { }
                 }
                 Thread.Sleep(86400000);//a day
             }
@@ -108,6 +112,8 @@ namespace BL
                 HostingUnitKey = unitKey,
                 Status = OrderStatus.MailSent
             };
+            dal.addOrder(order);
+
             BackgroundWorker mailworker = new BackgroundWorker();
             mailworker.DoWork += new DoWorkEventHandler(sendMail);
             mailworker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(worker_RunWorkerCompleted);
@@ -115,12 +121,6 @@ namespace BL
             object[] parameters = new object[] { getRequest(requestKey).MailAddress, getHostingUnit(unitKey) };
             // This runs the event on new background worker thread.
             mailworker.RunWorkerAsync(parameters);
-            //timerworker.ProgressChanged += Worker_ProgressChanged;
-            //timerworker.WorkerReportsProgress = true;
-
-
-            //sendMail(getRequest(requestKey).MailAddress, getHostingUnit(unitKey));
-            dal.addOrder(order);
         }
         public void sendMail(object sender, DoWorkEventArgs e)
         {
@@ -174,10 +174,12 @@ namespace BL
             if (order.Status != OrderStatus.MailSent)
                 throw new orderStatusException("ההזמנה לא רלונטית להסכמה");
             GuestRequest req = getRequest(order.GuestRequestKey);
+            HostingUnit unit = getHostingUnit(order.HostingUnitKey);
             updateOrderStatus(order);
-            getHostingUnit(order.HostingUnitKey).updateDiary(req.EntryDate, req.ReleaseDate);
+            unit.updateDiary(req.EntryDate, req.ReleaseDate);
             req.ActiveStatus = false;
             dal.updateRequest(req);
+            dal.updateHostingUnit(unit);
             return calculateCommission(req);
         }
         

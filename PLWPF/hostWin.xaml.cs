@@ -94,11 +94,7 @@ namespace PLWPF
                 GuestRequest req = (GuestRequest)(reqLV.SelectedItem);
                 if (req == null)
                     throw new NullReferenceException("לא נבחרה דרישת אירוח");
-                myBL.makeOrder(req.GuestRequestKey, unit.HostingUnitKey);
-                hostWin win = new hostWin(myHost);
-                this.Close();
-                win.ShowDialog();
-                win.unitCB.SelectedItem = unit;
+                myBL.makeOrder(req.GuestRequestKey, unit.HostingUnitKey);//שולח את המייל כאן ויוצר הזמנה
                 IEnumerable<Order> orderList = myBL.getOrdersByUnitKey(unit.HostingUnitKey);
                 orderLV.ItemsSource = orderList;
                 reqLV.ItemsSource = myBL.getRequestIf(request => unit.fitCheck(request) && !myBL.isInOrderList(request,orderList));
@@ -117,12 +113,12 @@ namespace PLWPF
                 Order order = (Order)(orderLV.SelectedItem);
                 if (order == null)
                     throw new NullReferenceException("לא נבחרה הזמנה");
-                int commission = myBL.acceptOrder(order);
+                int commission = myBL.acceptOrder(order);//
                 MessageBox.Show("חויבת עמלת תיווך על סך "+commission+" שקלים");
-                hostWin win = new hostWin(myHost);
-                this.Close();
-                win.ShowDialog();
-                unitCB.SelectedItem = unit;
+                //hostWin win = new hostWin(myHost);
+                //this.Close();
+                //win.ShowDialog();
+                //unitCB.SelectedItem = unit;
                 IEnumerable<Order> orderList = myBL.getOrdersByUnitKey(unit.HostingUnitKey);
                 orderLV.ItemsSource = orderList;
                 reqLV.ItemsSource = myBL.getRequestIf(request => unit.fitCheck(request) && !myBL.isInOrderList(request, orderList));

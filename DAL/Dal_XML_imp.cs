@@ -16,36 +16,52 @@ namespace DAL
     class Dal_XML_imp : Idal
     {
         private XElement hostsRoot;
-        private XElement unitsRoot;
-        private XElement requestsRoot;
-        private XElement ordersRoot;
         private XElement atmsRoot;
+        private XElement configurationRoot;
         private const string hostsPath = @"HostsXml.xml";
         private const string unitsPath = @"UnitsXml.xml";
         private const string requestsPath = @"RequestsXml.xml";
         private const string ordersPath = @"OrdersXml.xml";
         private const string atmsPath = @"atmsXml.xml";
+        private const string configurationPath = @"configurationXml.xml";
         public Dal_XML_imp()
         {
+            if (!File.Exists(configurationPath))
+                CreateFileConfiguration();
+            loadConfiguration();
+                
             if (!File.Exists(hostsPath))
                 CreateFileHosts();
             loadHosts();
             if (!File.Exists(unitsPath))
-                CreateFileUnits();
-            loadUnits();
+            {
+                List<HostingUnit> units = new List<HostingUnit>();
+                SaveToXML<List<HostingUnit>>(units, unitsPath);
+            }
             if (!File.Exists(requestsPath))
-                CreateFileRequests();
-            loadRequests();
+            {
+                List<GuestRequest> requests = new List<GuestRequest>();
+                SaveToXML<List<GuestRequest>>(requests, requestsPath);
+            }
             if (!File.Exists(ordersPath))
-                CreateFileOrders();
-            loadOrders();
-            if (File.Exists(atmsPath))
-                atmsRoot = XElement.Load(atmsPath);
+            {
+                List<Order> orders = new List<Order>();
+                SaveToXML<List<Order>>(orders, ordersPath);
+            }
             BackgroundWorker atmworker = new BackgroundWorker();
             atmworker.DoWork += atmload;
             //atmworker.ProgressChanged += Worker_ProgressChanged;
             atmworker.WorkerReportsProgress = true;
             atmworker.RunWorkerAsync();
+        }
+        private void CreateFileConfiguration()
+        {
+            configurationRoot = new XElement("configuration");
+            configurationRoot.Add(new XElement("GuestRequestSerialNum", Configuration.GuestRequestSerialNum-1));
+            configurationRoot.Add(new XElement("OrderSerialNum", Configuration.OrderSerialNum-1));
+            configurationRoot.Add(new XElement("HostingUnitSerialNum", Configuration.HostingUnitSerialNum-1));
+            configurationRoot.Add(new XElement("HostSerialNum", Configuration.HostSerialNum-1));
+            configurationRoot.Save(configurationPath);
         }
         private void atmload(object sender, DoWorkEventArgs e)
         {
@@ -56,7 +72,9 @@ namespace DAL
                     WebClient wc = new WebClient();
                     try
                     {
-                        string xmlServerPath = @"http://www.boi.org.il/he/BankingSupervision/BanksAndBranchLocations/Lists/BoiBankBranchesDocs/atm.xml";
+                        //string xmlServerPath = @"http://www.boi.org.il/he/BankingSupervision/BanksAndBranchLocations/Lists/BoiBankBranchesDocs/atm.xml";
+                        //wc.DownloadFile(xmlServerPath, atmsPath);
+                        string xmlServerPath = @"http://www.jct.ac.il/~coshri/atm.xml";
                         wc.DownloadFile(xmlServerPath, atmsPath);
                     }
                     catch (Exception)
@@ -77,47 +95,41 @@ namespace DAL
                 }
             }
         }
+        private void loadConfiguration()
+        {
+            configurationRoot = XElement.Load(configurationPath);
+        }
         private void loadHosts()
         {
             hostsRoot = XElement.Load(hostsPath);
-        }
-        private void loadUnits()
-        {
-            unitsRoot = XElement.Load(unitsPath);
-        }
-        private void loadRequests()
-        {
-            requestsRoot = XElement.Load(requestsPath);
-        }
-        private void loadOrders()
-        {
-            ordersRoot = XElement.Load(ordersPath);
         }
         private void CreateFileHosts()
         {
             hostsRoot = new XElement("hosts");
             hostsRoot.Save(hostsPath);
         }
-        private void CreateFileUnits()
-        {
-            unitsRoot = new XElement("units");
-            unitsRoot.Save(unitsPath);
-        }
-        private void CreateFileRequests()
-        {
-            requestsRoot = new XElement("requests");
-            requestsRoot.Save(requestsPath);
-        }
-        private void CreateFileOrders()
-        {
-            ordersRoot = new XElement("orders");
-            ordersRoot.Save(ordersPath);
-        }
+        //private void CreateFileUnits()
+        //{
+        //    unitsRoot = new XElement("units");
+        //    unitsRoot.Save(unitsPath);
+        //}
+        //private void CreateFileRequests()
+        //{
+        //    requestsRoot = new XElement("requests");
+        //    requestsRoot.Save(requestsPath);
+        //}
+        //private void CreateFileOrders()
+        //{
+        //    ordersRoot = new XElement("orders");
+        //    ordersRoot.Save(ordersPath);
+        //}
         public void addHost(Host host)
         {
             if (IsExistHost(host.HostKey))
                 throw new DuplicateIdException("host", host.HostKey);
-            host.HostKey = Configuration.HostSerialNum;
+            host.HostKey = Int32.Parse(configurationRoot.Element("HostSerialNum").Value) + 1;
+            configurationRoot.Element("HostSerialNum").Value= host.HostKey.ToString();
+            configurationRoot.Save(configurationPath);
             hostsRoot.Add(new XElement("host",
                                       new XElement("HostKey", host.HostKey),
                                       new XElement("PrivateName", host.PrivateName),
@@ -143,7 +155,9 @@ namespace DAL
         {
             if (IsExistUnit(unit.HostingUnitKey))
                 throw new DuplicateIdException("hosting unit", unit.HostingUnitKey);
-            unit.HostingUnitKey = Configuration.HostingUnitSerialNum;
+            unit.HostingUnitKey = Int32.Parse(configurationRoot.Element("HostingUnitSerialNum").Value) + 1;
+            configurationRoot.Element("HostingUnitSerialNum").Value = unit.HostingUnitKey.ToString();
+            configurationRoot.Save(configurationPath);
             List<HostingUnit> unitslist = LoadFromXML<List<HostingUnit>>(unitsPath);
             unitslist.Add(unit);
             SaveToXML(unitslist, unitsPath);
@@ -153,7 +167,9 @@ namespace DAL
         {
             if (IsExistOrder(order.OrderKey))
                 throw new DuplicateIdException("order", order.OrderKey);
-            order.OrderKey = Configuration.OrderSerialNum;
+            order.OrderKey = Int32.Parse(configurationRoot.Element("OrderSerialNum").Value) + 1;
+            configurationRoot.Element("OrderSerialNum").Value = order.OrderKey.ToString();
+            configurationRoot.Save(configurationPath);
             List<Order> orderslist = LoadFromXML<List<Order>>(ordersPath);
             orderslist.Add(order);
             SaveToXML(orderslist, ordersPath);
@@ -163,7 +179,9 @@ namespace DAL
         {
             if (IsExistRequest(request.GuestRequestKey))
                 throw new DuplicateIdException("request", request.GuestRequestKey);
-            request.GuestRequestKey = Configuration.GuestRequestSerialNum;
+            request.GuestRequestKey = Int32.Parse(configurationRoot.Element("GuestRequestSerialNum").Value) + 1;
+            configurationRoot.Element("GuestRequestSerialNum").Value = request.GuestRequestKey.ToString();
+            configurationRoot.Save(configurationPath);
             List<GuestRequest> list = LoadFromXML<List<GuestRequest>>(requestsPath);
             list.Add(request);
             SaveToXML(list, requestsPath);
@@ -187,7 +205,7 @@ namespace DAL
 
         public IEnumerable<GuestRequest> getAllGuestRequest()
         {
-            return LoadFromXML<IEnumerable<GuestRequest>>(requestsPath);
+            return LoadFromXML<List<GuestRequest>>(requestsPath);
         }
 
         public IEnumerable<Host> getAllHosts()
@@ -219,7 +237,7 @@ namespace DAL
 
         public IEnumerable<Order> getAllOrder()
         {
-            return LoadFromXML<IEnumerable<Order>>(ordersPath);
+            return LoadFromXML<List<Order>>(ordersPath);
         }
 
         public IEnumerable<HostingUnit> getAllUnits()
@@ -268,24 +286,18 @@ namespace DAL
         }
         private bool IsExistUnit(int id)
         {
-            XElement element = (from temp in unitsRoot.Elements()
-                                where int.Parse(temp.Element("UnitKey").Value) == id
-                                select temp).FirstOrDefault();
-            return element != null;
+            List<HostingUnit> units = LoadFromXML<List<HostingUnit>>(unitsPath);
+            return units.Any(unit => unit.HostingUnitKey == id);
         }
         private bool IsExistRequest(int id)
         {
-            XElement element = (from temp in requestsRoot.Elements()
-                                where int.Parse(temp.Element("RequestKey").Value) == id
-                                select temp).FirstOrDefault();
-            return element != null;
+            List<GuestRequest> requests = LoadFromXML<List<GuestRequest>>(requestsPath);
+            return requests.Any(request => request.GuestRequestKey == id);
         }
         private bool IsExistOrder(int id)
         {
-            XElement element = (from temp in ordersRoot.Elements()
-                                where int.Parse(temp.Element("OrderKey").Value) == id
-                                select temp).FirstOrDefault();
-            return element != null;
+            List<Order> orders = LoadFromXML<List<Order>>(ordersPath);
+            return orders.Any(order => order.OrderKey == id);
         }
         public void updateHostingUnit(HostingUnit unit)
         {
@@ -318,14 +330,14 @@ namespace DAL
         }
         public static void SaveToXML<T>(T source, string path)
         {
-            FileStream file = new FileStream(path, FileMode.Create);
+            FileStream file = new FileStream(path, FileMode.Create,FileAccess.Write);
             XmlSerializer xmlSer = new XmlSerializer(source.GetType());
             xmlSer.Serialize(file, source);
             file.Close();
         }
         public static T LoadFromXML<T>(string path)
         {
-            FileStream file = new FileStream(path, FileMode.Open);
+            FileStream file = new FileStream(path, FileMode.Open,FileAccess.Read);
             XmlSerializer xmlSer = new XmlSerializer(typeof(T));
             T result = (T)xmlSer.Deserialize(file);
             file.Close();

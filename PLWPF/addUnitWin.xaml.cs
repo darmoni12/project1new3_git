@@ -32,8 +32,8 @@ namespace PLWPF
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            try
-            {
+            //try
+            //{
                 HostingUnit Unit = new HostingUnit();
                 Unit.Diary = new Diary();
                 Unit.OwnerHostKey = ((Host)ownerCB.SelectedItem).HostKey;
@@ -59,11 +59,11 @@ namespace PLWPF
                 myBL.addHostingUnit(Unit);
                 MessageBox.Show("secces");
                 this.Close();
-            }
-            catch (Exception error)
-            {
-                MessageBox.Show(error.Message);
-            }
+            //}
+            //catch (Exception error)
+            //{
+            //    MessageBox.Show(error.Message);
+            //}
         }
     }
 }

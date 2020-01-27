@@ -2,6 +2,7 @@
 
 namespace BE
 {
+    [Serializable]
     public class GuestRequest
     {
         public int GuestRequestKey { get; set; }

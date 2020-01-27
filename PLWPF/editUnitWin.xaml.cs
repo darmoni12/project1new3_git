@@ -35,7 +35,7 @@ namespace PLWPF
             areaCB.ItemsSource = Enum.GetValues(typeof(Area)).Cast<Area>().Where(area => area != Area.All);
             typeCB.ItemsSource = Enum.GetValues(typeof(HostingType)).Cast<HostingType>();
             ownerCB.ItemsSource = myBL.getAllHosts();
-            ownerCB.SelectedIndex = Unit.OwnerHostKey - Configuration.SerialNumBonus;
+            ownerCB.SelectedItem = Unit.OwnerHostKey;
             jacuzziCB.IsChecked = Unit.Jacuzzi;
             gardenCB.IsChecked = Unit.Garden;
             poolCB.IsChecked = Unit.Pool;
