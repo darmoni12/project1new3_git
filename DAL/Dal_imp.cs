@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace DAL
 {
-    public class Dal_imp //: Idal
+    public class Dal_imp : Idal
     {
         public bool CheckHostingUnit(int key)
         {
@@ -150,6 +150,16 @@ namespace DAL
             if (CheckHost(host.HostKey))
                 throw new DuplicateIdException("host", host.HostKey);
             DataSource.hostsList.Add(Cloning.Clone(host));
+        }
+
+        public void updateCommision(int comis)
+        {
+            throw new NotImplementedException();
+        }
+
+        public int getSumOfCommission()
+        {
+            throw new NotImplementedException();
         }
     }
 }
