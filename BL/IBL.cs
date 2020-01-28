@@ -14,6 +14,7 @@ namespace BL
         int getNumOfDays(MyDate date);
         IEnumerable<Order> getOrders(int days);
         IEnumerable<GuestRequest> getRequestIf(Func<GuestRequest,bool> predicate);
+        IEnumerable<GuestRequest> getAllRequests();
         int getNumOfOrder(GuestRequest req);
         int getNumOfOrder(HostingUnit unit);
 
@@ -27,6 +28,7 @@ namespace BL
         void removeHostingUnit(int id);
         void updateHostingUnit(HostingUnit unit);
         IEnumerable<Host> getAllHosts();
+        IEnumerable<Order> getAllOrders();
 
         void addHostingUnit(HostingUnit unit);
         Host getHost(int hostKey);

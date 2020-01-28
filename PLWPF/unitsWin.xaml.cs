@@ -78,9 +78,17 @@ namespace PLWPF
             win.ShowDialog();
         }
 
-        private void Button_Click_4(object sender, RoutedEventArgs e)//edit host win
+        private void Button_Click_4(object sender, RoutedEventArgs e)//הצג סך עמלות
         {
-            MessageBox.Show("total commision is: "+myBL.getSumOfCommission() );
+            int x = myBL.getAllOrders().Count(order => order.Status==OrderStatus.ReservationAprroved);
+            MessageBox.Show("there is "+x+" orders that approved.\n"  +"total commision is: "+myBL.getSumOfCommission() );
+        }
+
+        private void Button_Click_5(object sender, RoutedEventArgs e)//כפתור הצג דרישות 
+        {
+            requestsWindow win = new requestsWindow();
+            
+            win.Show();
         }
     }
 }

@@ -39,14 +39,14 @@
             <ListView Name="orderLV" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn/>
+                        <GridViewColumn Header="ההזמנות ליחידה"/>
                     </GridView>
                 </ListView.View>
             </ListView>
             <ListView Name="reqLV" HorizontalAlignment="Stretch" Grid.Column="1">
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn/>
+                        <GridViewColumn Header="דרישות אירוח מתאימות"/>
                     </GridView>
                 </ListView.View>
             </ListView>

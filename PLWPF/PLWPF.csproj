@@ -75,6 +75,9 @@
     <Compile Include="ordersWin.xaml.cs">
       <DependentUpon>ordersWin.xaml</DependentUpon>
     </Compile>
+    <Compile Include="requestsWindow.xaml.cs">
+      <DependentUpon>requestsWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="unitsWin.xaml.cs">
       <DependentUpon>unitsWin.xaml</DependentUpon>
     </Compile>
@@ -122,6 +125,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="ordersWin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="requestsWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

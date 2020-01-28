@@ -20,7 +20,7 @@
         <ListView Name="lv" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.ColumnSpan="2" >
             <ListView.View>
                 <GridView>
-                    <GridViewColumn/>
+                    <GridViewColumn Header="רשימת המארחים"/>
                 </GridView>
             </ListView.View>
         </ListView>

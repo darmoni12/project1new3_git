@@ -79,6 +79,16 @@ namespace BL
             return dal.getAllGuestRequest().Where(req => predicate(req));
         }
 
+        public IEnumerable<GuestRequest> getAllRequests()
+        {
+            return dal.getAllGuestRequest();
+        }
+
+        public IEnumerable<Order> getAllOrders()
+        {
+            return dal.getAllOrder();
+        }
+
         public IEnumerable<IEnumerable<GuestRequest>> groupByNumOfPeople()
         {
             return dal.getAllGuestRequest().GroupBy(req => req.Adults + req.Children);
