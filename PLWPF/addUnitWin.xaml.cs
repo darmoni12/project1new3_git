@@ -22,21 +22,22 @@ namespace PLWPF
     public partial class addUnitWin : Window
     {
         public IBL myBL = BLI.GetBL();
-        public addUnitWin()
+        Host host;
+        public addUnitWin(Host Host)
         {
             InitializeComponent();
+            host = Host;
             areaCB.ItemsSource = Enum.GetValues(typeof(Area)).Cast<Area>().Where(area => area != Area.All);
             typeCB.ItemsSource = Enum.GetValues(typeof(HostingType)).Cast<HostingType>();
-            ownerCB.ItemsSource = myBL.getAllHosts();
+            ownerLabel.Content = host.ToString();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Button_Click(object sender, RoutedEventArgs e)//add unit
         {
-            //try
-            //{
+            try
+            {
                 HostingUnit Unit = new HostingUnit();
                 Unit.Diary = new Diary();
-                Unit.OwnerHostKey = ((Host)ownerCB.SelectedItem).HostKey;
                 Unit.Area = (Area)areaCB.SelectedItem;
                 Unit.Type = (HostingType)typeCB.SelectedItem;
                 if(unitNameTB.Text=="")
@@ -44,6 +45,7 @@ namespace PLWPF
                 Unit.HostingUnitName = unitNameTB.Text;
                 if(addressTB.Text=="")
                     throw new textExeption("address");
+                Unit.OwnerHostKey = host.HostKey;
                 Unit.Address = addressTB.Text;
                 Unit.MaxPeople = int.Parse(maxPeopleTB.Text);
                 Unit.Jacuzzi = (bool)jacuzziCB.IsChecked;
@@ -59,11 +61,11 @@ namespace PLWPF
                 myBL.addHostingUnit(Unit);
                 MessageBox.Show("secces");
                 this.Close();
-            //}
-            //catch (Exception error)
-            //{
-            //    MessageBox.Show(error.Message);
-            //}
+            }
+            catch (Exception error)
+            {
+                MessageBox.Show(error.Message);
+            }
         }
     }
 }

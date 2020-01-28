@@ -63,7 +63,8 @@ namespace PLWPF
         }
         private void Button_Click_2(object sender, RoutedEventArgs e)//add unit
         {
-            addUnitWin win = new addUnitWin();
+            Host host = new Host();
+            addUnitWin win = new addUnitWin(host);
             this.Close();
             win.ShowDialog();
         }

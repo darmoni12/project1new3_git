@@ -32,8 +32,8 @@ namespace PLWPF
 
         private void Button_Click(object sender, RoutedEventArgs e)//add host
         {
-            //try
-            //{
+            try
+            {
                 if (pass.Password == "")
                     throw new textExeption("Password");
                 host.Password = pass.Password;
@@ -53,11 +53,11 @@ namespace PLWPF
                 host.CollectionClearance = true;
                 myBL.addHost(host);
                 this.Close();
-            //}
-            //catch (Exception error)
-            //{
-            //    MessageBox.Show(error.Message);
-            //}
+            }
+            catch (Exception error)
+            {
+                MessageBox.Show(error.Message);
+            }
         }
     }
 }

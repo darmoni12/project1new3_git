@@ -21,8 +21,8 @@ namespace PLWPF
     /// </summary>
     public partial class hostWin : Window
     {
-        public IBL myBL = BLI.GetBL();
-        Host myHost;
+        IBL myBL = BLI.GetBL();
+        Host myHost { get; set; }
         public hostWin(Host host)
         {
             InitializeComponent();
@@ -41,14 +41,29 @@ namespace PLWPF
 
         private void Button_Click(object sender, RoutedEventArgs e)//edit host
         {
-            editHostWin win = new editHostWin(myHost);
-            win.ShowDialog();
+            try
+            {
+                editHostWin win = new editHostWin(myHost);
+                win.ShowDialog();
+            }
+            catch (Exception error)
+            {
+                MessageBox.Show(error.Message);
+            }
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)//add unit
         {
-            addUnitWin win = new addUnitWin();
-            win.ShowDialog();
+            try
+            {
+                addUnitWin win = new addUnitWin(myHost);
+                win.ShowDialog();
+                unitCB.ItemsSource = myBL.getUnitsForHost(myHost);
+            }
+            catch (Exception error)
+            {
+                MessageBox.Show(error.Message);
+            }
         }
 
         private void Button_Click_2(object sender, RoutedEventArgs e)//edit unit
@@ -60,6 +75,7 @@ namespace PLWPF
                     throw new NullReferenceException("לא נבחרה יחידת אירוח");
                 editUnitWin win = new editUnitWin(unit);
                 win.ShowDialog();
+                unitCB.ItemsSource = myBL.getUnitsForHost(myHost);
             }
             catch (Exception error)
             {
@@ -78,6 +94,7 @@ namespace PLWPF
                 hostWin win = new hostWin(myHost);
                 this.Close();
                 win.ShowDialog();
+                unitCB.ItemsSource = myBL.getUnitsForHost(myHost);
             }
             catch (Exception error)
             {
@@ -89,7 +106,6 @@ namespace PLWPF
         {
             try
             {
-                
                 HostingUnit unit = (HostingUnit)(unitCB.SelectedItem);
                 GuestRequest req = (GuestRequest)(reqLV.SelectedItem);
                 if (req == null)
@@ -107,29 +123,25 @@ namespace PLWPF
 
         private void Button_Click_5(object sender, RoutedEventArgs e)//אישור הזמנה
         {
-            //try
-            //{
+            try
+            {
                 HostingUnit unit = (HostingUnit)(unitCB.SelectedItem);
                 Order order = (Order)(orderLV.SelectedItem);
                 if (order == null)
                     throw new NullReferenceException("לא נבחרה הזמנה");
-                int commission = myBL.acceptOrder(order);//
+                int commission = myBL.acceptOrder(order);
                 MessageBox.Show("חויבת עמלת תיווך על סך "+commission+" שקלים");
-                //hostWin win = new hostWin(myHost);
-                //this.Close();
-                //win.ShowDialog();
-                //unitCB.SelectedItem = unit;
                 IEnumerable<Order> orderList = myBL.getOrdersByUnitKey(unit.HostingUnitKey);
                 orderLV.ItemsSource = orderList;
                 reqLV.ItemsSource = myBL.getRequestIf(request => unit.fitCheck(request) && !myBL.isInOrderList(request, orderList));
-            //}
-            //catch (Exception error)
-            //{
-            //    MessageBox.Show(error.Message);
-            //}
+            }
+            catch (Exception error)
+            {
+                MessageBox.Show(error.Message);
+            }
         }
 
-        private void Button_Click_6(object sender, RoutedEventArgs e)
+        private void Button_Click_6(object sender, RoutedEventArgs e)//דחיית הזמנה
         {
             try
             {

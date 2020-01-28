@@ -29,13 +29,11 @@ namespace PLWPF
             InitializeComponent();
             this.Unit = unit;
             editUnitWinGrid.DataContext = Unit;
-            ownerCB.SelectedItem = myBL.getHost(Unit.OwnerHostKey);
             areaCB.SelectedItem = Unit.Area;
             typeCB.SelectedItem = Unit.Type;
             areaCB.ItemsSource = Enum.GetValues(typeof(Area)).Cast<Area>().Where(area => area != Area.All);
             typeCB.ItemsSource = Enum.GetValues(typeof(HostingType)).Cast<HostingType>();
-            ownerCB.ItemsSource = myBL.getAllHosts();
-            ownerCB.SelectedItem = Unit.OwnerHostKey;
+            ownerLabel.Content = myBL.getHost(unit.OwnerHostKey);
             jacuzziCB.IsChecked = Unit.Jacuzzi;
             gardenCB.IsChecked = Unit.Garden;
             poolCB.IsChecked = Unit.Pool;
@@ -50,7 +48,6 @@ namespace PLWPF
 
         private void Button_Click(object sender, RoutedEventArgs e)//update
         {
-            Unit.OwnerHostKey = ((Host)ownerCB.SelectedItem).HostKey;
             Unit.Area = (Area)areaCB.SelectedItem;
             Unit.Type = (HostingType)typeCB.SelectedItem;
 

@@ -256,7 +256,7 @@ namespace DAL
 
         public void updateHost(Host host)
         {
-            if (IsExistHost(host.HostKey))
+            if (!IsExistHost(host.HostKey))
                 throw new MissingIdException("host", host.HostKey);
             XElement tempElement = (from temp in hostsRoot.Elements()
                                     where int.Parse(temp.Element("HostKey").Value) == host.HostKey

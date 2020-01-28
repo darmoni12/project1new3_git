@@ -49,7 +49,7 @@ namespace BL
             int i;
             if (last.CompareTo(first) <= 0)//if last<=first
                 throw new NoDaysException();
-            for (i = 0; temp.CompareTo(last)==0; i++,temp.addDays(1)) ;
+            for (i = 0; temp.CompareTo(last)!=0; i++,temp.addDays(1)) ;
             return i;
         }
 
@@ -180,9 +180,21 @@ namespace BL
             req.ActiveStatus = false;
             dal.updateRequest(req);
             dal.updateHostingUnit(unit);
+            rejectNonRelevantOrders(unit,req);
             return calculateCommission(req);
         }
-        
+        private void rejectNonRelevantOrders(HostingUnit unit, GuestRequest req)
+        {
+            foreach (Order order in GetOrderByUnit(unit))
+            {
+                if(order.Status==OrderStatus.MailSent&&!unit.fitCheck(req))//ההזמנה נשלחה אבל כבר לא רלוונטית מבחינת ימים
+                {
+                    rejectOrderSp(order);
+                }
+            } 
+        }
+
+
         public GuestRequest getRequest(int reqKey)
         {
             return dal.getAllGuestRequest().FirstOrDefault(req => reqKey == req.GuestRequestKey);
@@ -200,13 +212,13 @@ namespace BL
         {
             if (order.Status == OrderStatus.MailSent)
             {
-                order.Status = OrderStatus.NoResponsCustomerClose;
+                order.Status = OrderStatus.NoResponsClose;
                 dal.updateOrder(order);
             }
         }
         public void rejectOrderSp(Order order)
         {
-            order.Status = OrderStatus.NoResponsCustomerClose;
+            order.Status = OrderStatus.NoResponsClose;
             dal.updateOrder(order);
         }
         public void updateOrderStatus(Order order)
@@ -256,10 +268,10 @@ namespace BL
         }
         public void removeHostingUnit(int id)
         {
-            if (dal.getAllOrder().Count(order => order.HostingUnitKey == id && order.Status == OrderStatus.MailSent) == 0)//בודק שאין הזמנות פעילות ליחידת אירוח
+            if (dal.getAllOrder().Count(order => order.HostingUnitKey == id && order.Status != OrderStatus.NoResponsClose) == 0)//בודק שאין הזמנות פעילות ליחידת אירוח
                 dal.removeHostingUnit(id);
             else
-                throw new openOrdersException("remove");
+                throw new openOrdersException("לא ניתן למחוק יחידת אירוח מאחר ויש הזמנות רלונטיות");
         }
         public IEnumerable<Order> GetOrderByUnit(HostingUnit unit)
         {

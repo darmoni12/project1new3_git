@@ -5,26 +5,28 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PLWPF"
         mc:Ignorable="d"
-        Title="editHostWin" Height="375.51" Width="665.306">
-    <Grid>
+        Title="editHostWin" Height="393.391" Width="905.428">
+    <Grid Name="editHostGrid">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <Label Content="first name" HorizontalAlignment="Left" Height="47" Margin="33,30,0,0" VerticalAlignment="Top" Width="104"/>
-        <Label Content="last name" HorizontalAlignment="Left" Height="47" Margin="33,82,0,0" VerticalAlignment="Top" Width="104"/>
-        <Label Content="phone number" HorizontalAlignment="Left" Height="47" Margin="33,134,0,0" VerticalAlignment="Top" Width="104" RenderTransformOrigin="0.449,2.304"/>
-        <Label Content="mail address" HorizontalAlignment="Left" Height="47" Margin="33,181,0,0" VerticalAlignment="Top" Width="104"/>
+        <Label Content="first name" HorizontalAlignment="Left" Height="47" Margin="36,86,0,0" VerticalAlignment="Top" Width="104"/>
+        <Label Content="last name" HorizontalAlignment="Left" Height="47" Margin="36,138,0,0" VerticalAlignment="Top" Width="104"/>
+        <Label Content="phone number" HorizontalAlignment="Left" Height="47" Margin="36,190,0,0" VerticalAlignment="Top" Width="104" RenderTransformOrigin="0.449,2.304"/>
+        <Label Content="mail address" HorizontalAlignment="Left" Height="47" Margin="36,237,0,0" VerticalAlignment="Top" Width="104"/>
         <Label Content="bank brunch" HorizontalAlignment="Left" Height="47" Margin="41,35,0,0" VerticalAlignment="Top" Width="104" Grid.Column="1"/>
+        <Label Content="password" HorizontalAlignment="Left" Height="42" Margin="38,35,0,0" VerticalAlignment="Top" Width="102"/>
         <Label Content="bank account number" HorizontalAlignment="Left" Height="47" Margin="41,87,0,0" VerticalAlignment="Top" Width="134" Grid.Column="1"/>
+        <PasswordBox Name="pass" HorizontalAlignment="Left" Height="42" Margin="196,35,0,0" VerticalAlignment="Top" Width="200"/>
         <CheckBox Content="CollectionClearance" HorizontalAlignment="Left" Height="53" Margin="41,169,0,0" VerticalAlignment="Top" Width="183" Grid.Column="1" RenderTransformOrigin="0.856,0.878" IsChecked="True" IsEnabled="False"/>
-        <TextBox HorizontalAlignment="Left" Height="42" Margin="142,35,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="95"/>
-        <TextBox HorizontalAlignment="Left" Height="42" Margin="142,87,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="95"/>
-        <TextBox HorizontalAlignment="Left" Height="47" Margin="142,134,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="95"/>
-        <TextBox HorizontalAlignment="Left" Height="42" Margin="142,186,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="95"/>
-        <TextBox Grid.Column="1" HorizontalAlignment="Left" Height="42" Margin="175,87,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="74"/>
-        <ComboBox Grid.Column="1" HorizontalAlignment="Left" Height="42" Margin="150,35,0,0" VerticalAlignment="Top" Width="99"/>
-        <Button Content="update" Grid.Column="1" HorizontalAlignment="Left" Height="70" Margin="62,242,0,0" VerticalAlignment="Top" Width="162"/>
+        <TextBox HorizontalAlignment="Left" Height="42" Margin="196,91,0,0" TextWrapping="Wrap" Text="{Binding Path=PrivateName}" VerticalAlignment="Top" Width="200"/>
+        <TextBox HorizontalAlignment="Left" Height="42" Margin="196,143,0,0" TextWrapping="Wrap" Text="{Binding Path=FamilyName}" VerticalAlignment="Top" Width="200"/>
+        <TextBox HorizontalAlignment="Left" Height="47" Margin="196,190,0,0" TextWrapping="Wrap" Text="{Binding Path=PhoneNumber}" VerticalAlignment="Top" Width="200"/>
+        <TextBox HorizontalAlignment="Left" Height="42" Margin="196,242,0,0" TextWrapping="Wrap" Text="{Binding Path=MailAddress}" VerticalAlignment="Top" Width="200"/>
+        <TextBox Grid.Column="1" HorizontalAlignment="Left" Height="42" Margin="221,87,0,0" TextWrapping="Wrap" Text="{Binding Path=BankAccountNumber}" VerticalAlignment="Top" Width="184"/>
+        <ComboBox Name="cb" Grid.Column="1" HorizontalAlignment="Left" Height="42" Margin="150,35,0,0" VerticalAlignment="Top" Width="255" IsEditable="True"/>
+        <Button Content="update" Grid.Column="1" HorizontalAlignment="Left" Height="70" Margin="150,242,0,0" VerticalAlignment="Top" Width="162" Click="Button_Click"/>
 
     </Grid>
 </Window>

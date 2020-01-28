@@ -19,7 +19,6 @@
         <Label Content="type" HorizontalAlignment="Left" Height="49" Margin="28,305,0,0" VerticalAlignment="Top" Width="76"/>
         <Label Content="max people" HorizontalAlignment="Left" Height="24" Margin="28,355,0,0" VerticalAlignment="Top" Width="76"/>
         <Button Content="add" HorizontalAlignment="Left" Height="92" Margin="66,300,0,0" VerticalAlignment="Top" Width="147" Grid.Column="2" Click="Button_Click"/>
-        <ComboBox Name="ownerCB" HorizontalAlignment="Left" Height="49" Margin="104,42,0,0" VerticalAlignment="Top" Width="121"/>
         <TextBox Name="unitNameTB" HorizontalAlignment="Left" Height="30" Margin="108,114,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="117"/>
         <ComboBox Name="areaCB" HorizontalAlignment="Left" Height="51" Margin="108,169,0,0" VerticalAlignment="Top" Width="117"/>
         <TextBox Name="addressTB" HorizontalAlignment="Left" Height="41" Margin="110,259,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="115"/>
@@ -35,6 +34,7 @@
         <CheckBox Name="bedOnlyCB" Content="bed only" Grid.Column="2" HorizontalAlignment="Left" Height="30" Margin="66,96,0,0" VerticalAlignment="Top" Width="81"/>
         <CheckBox Name="freeWifiCB" Content="free wifi" Grid.Column="2" HorizontalAlignment="Left" Height="30" Margin="66,157,0,0" VerticalAlignment="Top" Width="81"/>
         <CheckBox Name="freeParkingCB" Content="free parking" Grid.Column="2" HorizontalAlignment="Left" Height="30" Margin="66,227,0,0" VerticalAlignment="Top" Width="96"/>
+        <Label Name="ownerLabel" HorizontalAlignment="Left" Height="38" Margin="108,42,0,0" VerticalAlignment="Top" Width="117"/>
 
     </Grid>
 </Window>

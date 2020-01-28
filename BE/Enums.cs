@@ -10,7 +10,7 @@ namespace BE
 
     public enum Require { Possible, Necessary, PreferNot }
 
-    public enum OrderStatus { MailSent, NoResponsCustomerClose, ReservationAprroved }
+    public enum OrderStatus { MailSent, NoResponsClose, ReservationAprroved }
 
     public enum Food { Breakfast,HB,FB,BedOnly}
 
