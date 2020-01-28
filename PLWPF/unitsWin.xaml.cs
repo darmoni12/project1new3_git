@@ -27,9 +27,11 @@ namespace PLWPF
             InitializeComponent();
             unitsLV.ItemsSource = myBL.getAllUnits();
             hostsLV.ItemsSource = myBL.getAllHosts();
+
+            
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)//remove
+        private void Button_Click(object sender, RoutedEventArgs e)//remove unit
         {
             try
             {
@@ -45,7 +47,7 @@ namespace PLWPF
             }
         }
 
-        private void Button_Click_1(object sender, RoutedEventArgs e)//edit
+        private void Button_Click_1(object sender, RoutedEventArgs e)//edit unit
         {
             try
             {
@@ -76,21 +78,9 @@ namespace PLWPF
             win.ShowDialog();
         }
 
-        private void Button_Click_4(object sender, RoutedEventArgs e)
+        private void Button_Click_4(object sender, RoutedEventArgs e)//edit host win
         {
-            try
-            {
-                Host host = (Host)(hostsLV.SelectedItem);
-                if (host == null)
-                    throw new NullReferenceException("לא נבחר מארח");
-                editHostWin win = new editHostWin(host);
-                this.Close();
-                win.ShowDialog();
-            }
-            catch (Exception error)
-            {
-                MessageBox.Show(error.Message);
-            }
+            MessageBox.Show("total commision is: ");
         }
     }
 }

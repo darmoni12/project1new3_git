@@ -61,6 +61,7 @@ namespace DAL
             configurationRoot.Add(new XElement("OrderSerialNum", Configuration.OrderSerialNum-1));
             configurationRoot.Add(new XElement("HostingUnitSerialNum", Configuration.HostingUnitSerialNum-1));
             configurationRoot.Add(new XElement("HostSerialNum", Configuration.HostSerialNum-1));
+            configurationRoot.Add(new XElement("SumOfCommission","0"));
             configurationRoot.Save(configurationPath);
         }
         private void atmload(object sender, DoWorkEventArgs e)
@@ -342,6 +343,17 @@ namespace DAL
             T result = (T)xmlSer.Deserialize(file);
             file.Close();
             return result;
+        }
+        public void updateCommision(int comis)
+        {
+            int sum = int.Parse( configurationRoot.Element("SumOfCommission").Value);
+            sum += comis;
+            configurationRoot.Element("SumOfCommission").Value = sum.ToString();
+            configurationRoot.Save(configurationPath);
+        }
+        public int getSumOfCommission()
+        {
+            return int.Parse(configurationRoot.Element("SumOfCommission").Value);
         }
     }
 }

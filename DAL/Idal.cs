@@ -26,5 +26,8 @@ namespace DAL
         IEnumerable<Order> getAllOrder();
         IEnumerable<Host> getAllHosts();
         IEnumerable<BankBranch> getAllBranches();
+
+        void updateCommision(int comis);
+        int getSumOfCommission();
     }
 }

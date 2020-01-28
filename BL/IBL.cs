@@ -41,7 +41,7 @@ namespace BL
         int acceptOrder(Order order);
         void rejectOrderSp(Order order);
         IEnumerable<BankBranch> getAllBankBranch();
-
+        int getSumOfCommission();
 
 
 

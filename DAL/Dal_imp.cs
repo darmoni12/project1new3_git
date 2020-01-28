@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace DAL
 {
-    public class Dal_imp : Idal
+    public class Dal_imp //: Idal
     {
         public bool CheckHostingUnit(int key)
         {

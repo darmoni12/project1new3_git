@@ -181,7 +181,10 @@ namespace BL
             dal.updateRequest(req);
             dal.updateHostingUnit(unit);
             rejectNonRelevantOrders(unit,req);
-            return calculateCommission(req);
+            int commission=calculateCommission(req);
+            dal.updateCommision(commission);
+            
+            return commission; 
         }
         private void rejectNonRelevantOrders(HostingUnit unit, GuestRequest req)
         {
@@ -293,6 +296,12 @@ namespace BL
         {
             return dal.getAllOrder().Where(order => order.HostingUnitKey == unitKey);
         }
+
+        public int getSumOfCommission()
+        {
+            return dal.getSumOfCommission();
+        }
+
         public IEnumerable<BankBranch> getAllBankBranch()
         {
             //return new List<BankBranch>()
