@@ -49,6 +49,7 @@ namespace PLWPF
                     throw new textExeption("last name");
                 req.FamilyName = lastNameTB.Text;
                 System.Net.Mail.MailAddress address = new System.Net.Mail.MailAddress(mailTB.Text);
+                req.MailAddress = address.Address;
                 req.ActiveStatus = true;
                 req.Area = (Area)(Enum.Parse(typeof(Area), areaCB.Text, true));
                 req.Type = (HostingType)(Enum.Parse(typeof(HostingType), typeCB.Text, true));
