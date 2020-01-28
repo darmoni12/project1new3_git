@@ -80,7 +80,7 @@ namespace PLWPF
 
         private void Button_Click_4(object sender, RoutedEventArgs e)//edit host win
         {
-            MessageBox.Show("total commision is: ");
+            MessageBox.Show("total commision is: "+myBL.getSumOfCommission() );
         }
     }
 }
