@@ -6,6 +6,9 @@
         xmlns:local="clr-namespace:PLWPF"
         mc:Ignorable="d"
         Title="addNewReqW" Height="410.241" Width="827.71">
+    <Window.Background>
+        <ImageBrush ImageSource="background.jpg"/>
+    </Window.Background>
     <Grid Name="addNewReqGrid">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>

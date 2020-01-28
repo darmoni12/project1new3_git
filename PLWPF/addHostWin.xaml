@@ -6,6 +6,9 @@
         xmlns:local="clr-namespace:PLWPF"
         mc:Ignorable="d"
         Title="addHostWin" Height="395.418" Width="1047.245">
+    <Window.Background>
+        <ImageBrush ImageSource="background.jpg"/>
+    </Window.Background>
     <Grid Name="addHostGrid">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>

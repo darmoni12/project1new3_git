@@ -6,8 +6,11 @@
         xmlns:local="clr-namespace:PLWPF"
         mc:Ignorable="d"
         Title="requestsWindow" Height="450" Width="800">
+    <Window.Background>
+        <ImageBrush ImageSource="background.jpg"/>
+    </Window.Background>
     <Grid>
-        <ListView  Name="requestsLV" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" >
+        <ListView  Name="requestsLV" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="{x:Null}" >
             <ListView.View >
                 <GridView >
                     <GridViewColumn  Header="כל הדרישות במערכת"/>

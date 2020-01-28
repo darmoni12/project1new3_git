@@ -65,10 +65,20 @@ namespace PLWPF
         }
         private void Button_Click_2(object sender, RoutedEventArgs e)//add unit
         {
-            Host host = new Host();
-            addUnitWin win = new addUnitWin(host);
-            this.Close();
-            win.ShowDialog();
+            try
+            {
+                Host host = (Host)(hostsLV.SelectedItem);
+                if (host == null)
+                    throw new NullReferenceException("לא נבחר מארח");
+                addUnitWin win = new addUnitWin(host);
+                this.Close();
+                win.ShowDialog();
+            }
+            catch (Exception error)
+            {
+                MessageBox.Show(error.Message);
+            }
+            
         }
 
         private void Button_Click_3(object sender, RoutedEventArgs e)//add host
@@ -80,15 +90,49 @@ namespace PLWPF
 
         private void Button_Click_4(object sender, RoutedEventArgs e)// הצג סך עמלות והזמנות שאושרו
         {
-            int x = myBL.getAllOrders().Count(order => order.Status==OrderStatus.ReservationAprroved);
-            MessageBox.Show("there is "+x+" orders that approved. \n"  +"total commision is: "+myBL.getSumOfCommission() );
+            try
+            {
+                int x = myBL.getAllOrders().Count(order => order.Status == OrderStatus.ReservationAprroved);
+                MessageBox.Show("there is " + x + " orders that approved. \n" + "total commision is: " + myBL.getSumOfCommission());
+            }
+            catch(Exception)
+            {
+                MessageBox.Show("לא אושרו הזמנות לכן אין עמלות בינתיים");
+            }
         }
 
         private void Button_Click_5(object sender, RoutedEventArgs e)//כפתור הצג דרישות 
         {
-            requestsWindow win = new requestsWindow();
-            
-            win.Show();
+            try
+            {
+                HostingUnit unit = (HostingUnit)(unitsLV.SelectedItem);
+                if (unit == null)
+                    throw new NullReferenceException("לא נבחרה יחידת אירוח");
+                requestsWindow win = new requestsWindow(unit);
+                this.Close();
+                win.ShowDialog();
+            }
+            catch (Exception error)
+            {
+                MessageBox.Show(error.Message);
+            }
+        }
+
+        private void Button_Click_6(object sender, RoutedEventArgs e)//כפתור הצג הזמנות
+        {
+            try
+            {
+                HostingUnit unit = (HostingUnit)(unitsLV.SelectedItem);
+                if (unit == null)
+                    throw new NullReferenceException("לא נבחרה יחידת אירוח");
+                ordersWin win = new ordersWin(unit);
+                this.Close();
+                win.ShowDialog();
+            }
+            catch (Exception error)
+            {
+                MessageBox.Show(error.Message);
+            }
         }
     }
 }

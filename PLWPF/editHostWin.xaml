@@ -6,6 +6,9 @@
         xmlns:local="clr-namespace:PLWPF"
         mc:Ignorable="d"
         Title="editHostWin" Height="393.391" Width="905.428">
+    <Window.Background>
+        <ImageBrush ImageSource="background.jpg"/>
+    </Window.Background>
     <Grid Name="editHostGrid">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>

@@ -6,6 +6,9 @@
         xmlns:local="clr-namespace:PLWPF"
         mc:Ignorable="d"
         Title="כניסת מארחים" Height="351.02" Width="573.469">
+    <Window.Background>
+        <ImageBrush ImageSource="background.jpg"/>
+    </Window.Background>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -16,15 +19,15 @@
             <RowDefinition Height="47*"/>
             <RowDefinition Height="80*"/>
         </Grid.RowDefinitions>
-        <Button Content="הוסף מארח" Grid.Column="1" HorizontalAlignment="Stretch" Grid.Row="2" VerticalAlignment="Stretch" Click="Button_Click_1"/>
-        <ListView Name="lv" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.ColumnSpan="2" >
+        <Button Content="הוסף מארח" Grid.Column="1" HorizontalAlignment="Stretch" Grid.Row="2" VerticalAlignment="Stretch" Click="Button_Click_1" Background="{x:Null}"/>
+        <ListView Name="lv" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.ColumnSpan="2" Background="{x:Null}" >
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="רשימת המארחים"/>
                 </GridView>
             </ListView.View>
         </ListView>
-        <Button Content="כניסה" HorizontalAlignment="Stretch" Grid.Row="2" VerticalAlignment="Stretch" Click="Button_Click_2"/>
+        <Button Content="כניסה" HorizontalAlignment="Stretch" Grid.Row="2" VerticalAlignment="Stretch" Click="Button_Click_2" Background="{x:Null}"/>
         <PasswordBox Name="password" Height="47" Margin="10,0,143,0" Grid.Row="1" VerticalAlignment="Top" Width="Auto"/>
         <Label Content="הכנס סיסמא" HorizontalAlignment="Left" Height="27" Margin="158,10,0,0" Grid.Row="1" VerticalAlignment="Top" Width="114"/>
 

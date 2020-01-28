@@ -6,39 +6,56 @@
         xmlns:local="clr-namespace:PLWPF"
         mc:Ignorable="d"
         Title="מנהל האתר" Height="435.185" Width="722.222">
+    <Window.Background>
+        <ImageBrush ImageSource="background.jpg"/>
+    </Window.Background>
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="335*"/>
-            <RowDefinition Height="69*"/>
+            <RowDefinition Height="313*"/>
+            <RowDefinition Height="91*"/>
         </Grid.RowDefinitions>
-        <Button Content="הוסף יחידה" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="Button_Click_2" Grid.Row="1" Grid.Column="3"/>
-        <Button Content="ערוך יחידה" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="Button_Click_1" Grid.Row="1" Grid.Column="1"/>
-        <Button Content="הסר יחידה" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="Button_Click" Grid.Row="1"/>
-        <Button Content="הצג דרישות" Grid.Column="2" HorizontalAlignment="Stretch" Grid.Row="1" VerticalAlignment="Stretch" Click="Button_Click_5"/>
-        <Button Content="הוסף מארח" Grid.Column="5" HorizontalAlignment="Stretch" Grid.Row="1" VerticalAlignment="Stretch" Click="Button_Click_3"/>
-        <Button Content="סך עמלות שהתקבלו" Grid.Column="4" HorizontalAlignment="Stretch" Grid.Row="1" VerticalAlignment="Stretch" Click="Button_Click_4"/>
-        <ListView  Name="unitsLV" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Grid.ColumnSpan="3">
-            <ListView.View >
-                <GridView >
-                    <GridViewColumn  Header="יחידות אירוח במאגר"/>
-                </GridView>
-            </ListView.View>
-        </ListView>
-        <ListView Name="hostsLV" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="3" Grid.ColumnSpan="3">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn Header="מארחים הקיימים במאגר"/>
-                </GridView>
-            </ListView.View>
-        </ListView>
+       
+        
+        <Grid HorizontalAlignment="Stretch" Grid.Row="1" VerticalAlignment="Stretch">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Button Content="הוסף יחידה" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="Button_Click_2" Background="{x:Null}" Grid.Column="0" Grid.Row="0"/>
+            <Button Content="ערוך יחידה" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="Button_Click_1" Background="{x:Null}" Grid.Column="1" Grid.Row="0"/>
+            <Button Content="הסר יחידה" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="Button_Click" Background="{x:Null}" Grid.Column="2" Grid.Row="0"/>
+            <Button Content="הצג דרישות" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="Button_Click_5" Background="{x:Null}" Grid.Column="0" Grid.Row="1"/>
+            <Button Content="הוסף מארח" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="Button_Click_3" Background="{x:Null}" Grid.Column="3" Grid.Row="0"/>
+            <Button Content="הצג הזמנות" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="Button_Click_6" Background="{x:Null}" Grid.Column="1" Grid.Row="1"/>
+            <Button Content="סך עמלות שהתקבלו" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="Button_Click_4" Background="{x:Null}" Grid.Column="2" Grid.Row="1" Grid.ColumnSpan="2"/>
+            
+        </Grid>
+        <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <ListView  Name="unitsLV" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="{x:Null}" Grid.Row="0" Grid.Column="0">
+                <ListView.View >
+                    <GridView >
+                        <GridViewColumn  Header="יחידות אירוח במאגר"/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+            <ListView Name="hostsLV" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="{x:Null}" Grid.Column="1" Grid.Row="0">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="מארחים הקיימים במאגר"/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </Grid>
 
     </Grid>
 </Window>

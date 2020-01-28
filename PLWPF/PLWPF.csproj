@@ -60,6 +60,9 @@
     <Compile Include="addUnitWin.xaml.cs">
       <DependentUpon>addUnitWin.xaml</DependentUpon>
     </Compile>
+    <Compile Include="adminEnter.xaml.cs">
+      <DependentUpon>adminEnter.xaml</DependentUpon>
+    </Compile>
     <Compile Include="editHostWin.xaml.cs">
       <DependentUpon>editHostWin.xaml</DependentUpon>
     </Compile>
@@ -90,6 +93,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="addUnitWin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="adminEnter.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -172,6 +179,9 @@
       <Project>{170121b5-297a-4025-9db7-4b30cceaa49d}</Project>
       <Name>BL</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="background.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

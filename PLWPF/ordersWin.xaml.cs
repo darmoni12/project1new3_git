@@ -25,6 +25,7 @@ namespace PLWPF
         public ordersWin(HostingUnit unit)
         {
             InitializeComponent();
+            lv.ItemsSource = myBL.getOrdersByUnitKey(unit.HostingUnitKey);
         }
     }
 }

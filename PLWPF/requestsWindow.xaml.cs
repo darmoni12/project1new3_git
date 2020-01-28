@@ -21,10 +21,10 @@ namespace PLWPF
     public partial class requestsWindow : Window
     {
         public IBL myBL = BLI.GetBL();
-        public requestsWindow()
+        public requestsWindow(HostingUnit unit)
         {
             InitializeComponent();
-            requestsLV.ItemsSource = myBL.getAllRequests();
+            requestsLV.ItemsSource = myBL.getRequestIf(req=>unit.fitCheck(req));
         }
     }
 }

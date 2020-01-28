@@ -6,6 +6,9 @@
         xmlns:local="clr-namespace:PLWPF"
         mc:Ignorable="d"
         Title="addUnitWin" Height="467.347" Width="797.959">
+    <Window.Background>
+        <ImageBrush ImageSource="background.jpg"/>
+    </Window.Background>
     <Grid x:Name="editUnitWinGrid" Margin="0,0,2,-5">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>

@@ -6,7 +6,17 @@
         xmlns:local="clr-namespace:PLWPF"
         mc:Ignorable="d"
         Title="ordersWin" Height="326.531" Width="544.898">
+    <Window.Background>
+        <ImageBrush ImageSource="background.jpg"/>
+    </Window.Background>
     <Grid>
+        <ListView Name="lv" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="{x:Null}">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn/>
+                </GridView>
+            </ListView.View>
+        </ListView>
 
     </Grid>
 </Window>

@@ -37,7 +37,7 @@ namespace PLWPF
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            unitsWin win = new unitsWin();
+            adminEnter win = new adminEnter();
             win.ShowDialog();
         }
 
