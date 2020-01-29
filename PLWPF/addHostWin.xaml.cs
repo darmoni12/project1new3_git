@@ -43,8 +43,7 @@ namespace PLWPF
                     throw new textExeption("last name");
                 if (host.PhoneNumber == "")
                     throw new textExeption("phone number");
-                if (host.MailAddress == "")
-                    throw new textExeption("mail address");
+                System.Net.Mail.MailAddress address = new System.Net.Mail.MailAddress(host.MailAddress);
                 if (cb.SelectedItem == null)
                     throw new NullReferenceException("לא נבחר סניף בנק");
                 host.BankBranchDetails = (BankBranch)cb.SelectedItem;
