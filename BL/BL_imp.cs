@@ -200,7 +200,8 @@ namespace BL
         {
             foreach (Order order in GetOrderByUnit(unit))
             {
-                if(order.Status==OrderStatus.MailSent&&!unit.fitCheck(req))//ההזמנה נשלחה אבל כבר לא רלוונטית מבחינת ימים
+                GuestRequest x = getRequest(order.GuestRequestKey);
+                if(order.Status==OrderStatus.MailSent&&!unit.fitCheck(x))//ההזמנה נשלחה אבל כבר לא רלוונטית מבחינת ימים
                 {
                     rejectOrderSp(order);
                 }
