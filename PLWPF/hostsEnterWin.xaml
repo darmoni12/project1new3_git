@@ -19,7 +19,7 @@
             <RowDefinition Height="47*"/>
             <RowDefinition Height="80*"/>
         </Grid.RowDefinitions>
-        <Button Content="הוסף מארח" Grid.Column="1" HorizontalAlignment="Stretch" Grid.Row="2" VerticalAlignment="Stretch" Click="Button_Click_1" Background="{x:Null}"/>
+        <Button Content="הוסף מארח" Grid.Column="1" HorizontalAlignment="Stretch" Grid.Row="2" VerticalAlignment="Stretch" Click="Button_Click_1" Background="{x:Null}" FontSize="16"/>
         <ListView Name="lv" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.ColumnSpan="2" Background="{x:Null}" >
             <ListView.View>
                 <GridView>
@@ -27,9 +27,9 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <Button Content="כניסה" HorizontalAlignment="Stretch" Grid.Row="2" VerticalAlignment="Stretch" Click="Button_Click_2" Background="{x:Null}"/>
+        <Button Content="כניסה" HorizontalAlignment="Stretch" Grid.Row="2" VerticalAlignment="Stretch" Click="Button_Click_2" Background="{x:Null}" FontSize="16"/>
         <PasswordBox Name="password" Height="47" Margin="10,0,143,0" Grid.Row="1" VerticalAlignment="Top" Width="Auto"/>
-        <Label Content="הכנס סיסמא" HorizontalAlignment="Left" Height="27" Margin="158,10,0,0" Grid.Row="1" VerticalAlignment="Top" Width="114"/>
+        <Label Content="הכנס סיסמא" HorizontalAlignment="Left" Height="27" Margin="158,10,0,0" Grid.Row="1" VerticalAlignment="Top" Width="114" FontSize="16"/>
 
     </Grid>
 </Window>

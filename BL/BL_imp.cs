@@ -231,8 +231,24 @@ namespace BL
         }
         public void rejectOrderSp(Order order)
         {
+            if(order.Status==OrderStatus.ReservationAprroved)
+            {
+                GuestRequest req = getRequest(order.GuestRequestKey);
+                req.ActiveStatus = true;
+                HostingUnit unit = getHostingUnit(order.HostingUnitKey);
+                releasDayd(unit, req);
+                dal.updateHostingUnit(unit);
+                dal.updateRequest(req);
+            }
             order.Status = OrderStatus.NoResponsClose;
             dal.updateOrder(order);
+        }
+        private void releasDayd(HostingUnit unit,GuestRequest req)
+        {
+            for (MyDate temp = Cloning.Clone(req.EntryDate); temp.CompareTo(req.ReleaseDate) != 0; temp.addDays(1))
+            {
+                unit.Diary[temp] = false;
+            }
         }
         public void updateOrderStatus(Order order)
         {

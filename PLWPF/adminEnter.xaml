@@ -10,7 +10,7 @@
         <ImageBrush ImageSource="background.jpg"/>
     </Window.Background>
     <Grid>
-        <Label Content="הכנס סיסמת מנהל" HorizontalAlignment="Center" Height="50" VerticalAlignment="Top" Margin="144,0,48,0"/>
+        <Label Content="הכנס סיסמת מנהל" HorizontalAlignment="Center" Height="50" VerticalAlignment="Top" Margin="133,0,48,0" FontSize="14" Width="129"/>
         <PasswordBox Name="pass" HorizontalAlignment="Stretch" Height="54" VerticalAlignment="Stretch" Width="215"/>
         <Button Content="כניסה" HorizontalAlignment="Stretch" Height="41"  VerticalAlignment="Bottom" Width="119" Click="Button_Click"/>
 

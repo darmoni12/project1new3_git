@@ -15,5 +15,6 @@ namespace BE
         public static int OrderSerialNum { get => ++orderSerialNum; }
         public static int HostSerialNum { get => ++hostSerialNum; }
         public const int commission = 10;
+        public const string manegerPass = "321";
     }
 }

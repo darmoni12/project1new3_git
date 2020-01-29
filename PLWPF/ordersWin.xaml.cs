@@ -22,10 +22,10 @@ namespace PLWPF
     public partial class ordersWin : Window
     {
         public IBL myBL = BLI.GetBL();
-        public ordersWin(HostingUnit unit)
+        public ordersWin()
         {
             InitializeComponent();
-            lv.ItemsSource = myBL.getOrdersByUnitKey(unit.HostingUnitKey);
+            lv.ItemsSource = myBL.getAllOrders();
         }
     }
 }

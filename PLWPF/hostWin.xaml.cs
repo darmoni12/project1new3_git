@@ -26,20 +26,21 @@ namespace PLWPF
         public hostWin(Host host)
         {
             InitializeComponent();
-            
             myHost = host;            
             unitCB.ItemsSource = myBL.getUnitsForHost(myHost);
             this.Title ="host:   "+ host.PrivateName;
-            //unitCB.Items.Insert(0, "אנא בחר יחידת אירוח:");
-            unitCB.Text = "sdf";
         }
 
         private void unitCB_SelectionChanged(object sender, SelectionChangedEventArgs e)//select combo box
         {
-            HostingUnit unit = (HostingUnit)(unitCB.SelectedItem);
-            IEnumerable<Order> orderList = myBL.getOrdersByUnitKey(unit.HostingUnitKey);
-            orderLV.ItemsSource = orderList;
-            reqLV.ItemsSource = myBL.getRequestIf(request => unit.fitCheck(request) && !myBL.isInOrderList(request, orderList));
+            try
+            {
+                HostingUnit unit = (HostingUnit)(unitCB.SelectedItem);
+                IEnumerable<Order> orderList = myBL.getOrdersByUnitKey(unit.HostingUnitKey);
+                orderLV.ItemsSource = orderList;
+                reqLV.ItemsSource = myBL.getRequestIf(request => unit.fitCheck(request) && !myBL.isInOrderList(request, orderList));
+            }
+            catch (Exception) { }
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)//edit host
@@ -47,7 +48,9 @@ namespace PLWPF
             try
             {
                 editHostWin win = new editHostWin(myHost);
+                unitCB.SelectedIndex = -1;
                 win.ShowDialog();
+                unitCB.ItemsSource = myBL.getUnitsForHost(myHost);
             }
             catch (Exception error)
             {

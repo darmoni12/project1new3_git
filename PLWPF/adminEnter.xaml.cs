@@ -29,7 +29,7 @@ namespace PLWPF
         {
             try
             {
-                if (pass.Password != "321")
+                if (pass.Password != Configuration.manegerPass)
                     throw new wrongPasswordException("סיסמא שגויה");
                 unitsWin win = new unitsWin();
                 this.Close();

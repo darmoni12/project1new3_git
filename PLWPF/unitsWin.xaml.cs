@@ -27,8 +27,6 @@ namespace PLWPF
             InitializeComponent();
             unitsLV.ItemsSource = myBL.getAllUnits();
             hostsLV.ItemsSource = myBL.getAllHosts();
-
-            
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)//remove unit
@@ -37,9 +35,7 @@ namespace PLWPF
             {
                 HostingUnit unit = (HostingUnit)(unitsLV.SelectedItem);
                 myBL.removeHostingUnit(unit.HostingUnitKey);
-                this.Close();
-                unitsWin win = new unitsWin();
-                win.ShowDialog();
+                unitsLV.ItemsSource = myBL.getAllUnits();
             }
             catch (Exception error)
             {
@@ -55,8 +51,8 @@ namespace PLWPF
                 if (unit == null)
                     throw new NullReferenceException("לא נבחרה יחידת אירוח");
                 editUnitWin win = new editUnitWin(unit);
-                this.Close();
                 win.ShowDialog();
+                unitsLV.ItemsSource = myBL.getAllUnits();
             }
             catch (Exception error)
             {
@@ -71,21 +67,20 @@ namespace PLWPF
                 if (host == null)
                     throw new NullReferenceException("לא נבחר מארח");
                 addUnitWin win = new addUnitWin(host);
-                this.Close();
                 win.ShowDialog();
+                unitsLV.ItemsSource = myBL.getAllUnits();
             }
             catch (Exception error)
             {
                 MessageBox.Show(error.Message);
             }
-            
         }
 
         private void Button_Click_3(object sender, RoutedEventArgs e)//add host
         {
             addHostWin win = new addHostWin();
-            this.Close();
             win.ShowDialog();
+            hostsLV.ItemsSource = myBL.getAllHosts();
         }
 
         private void Button_Click_4(object sender, RoutedEventArgs e)// הצג סך עמלות והזמנות שאושרו
@@ -93,11 +88,14 @@ namespace PLWPF
             try
             {
                 int x = myBL.getAllOrders().Count(order => order.Status == OrderStatus.ReservationAprroved);
-                MessageBox.Show("there is " + x + " orders that approved. \n" + "total commision is: " + myBL.getSumOfCommission());
+                if (x==0)
+                    MessageBox.Show("לא אושרו הזמנות לכן אין עמלות בינתיים");
+                else
+                    MessageBox.Show("there is " + x + " orders that approved. \n" + "total commision is: " + myBL.getSumOfCommission());
             }
-            catch(Exception)
+            catch(Exception error)
             {
-                MessageBox.Show("לא אושרו הזמנות לכן אין עמלות בינתיים");
+                MessageBox.Show(error.Message);
             }
         }
 
@@ -105,11 +103,7 @@ namespace PLWPF
         {
             try
             {
-                HostingUnit unit = (HostingUnit)(unitsLV.SelectedItem);
-                if (unit == null)
-                    throw new NullReferenceException("לא נבחרה יחידת אירוח");
-                requestsWindow win = new requestsWindow(unit);
-                this.Close();
+                requestsWindow win = new requestsWindow();
                 win.ShowDialog();
             }
             catch (Exception error)
@@ -122,11 +116,23 @@ namespace PLWPF
         {
             try
             {
-                HostingUnit unit = (HostingUnit)(unitsLV.SelectedItem);
-                if (unit == null)
-                    throw new NullReferenceException("לא נבחרה יחידת אירוח");
-                ordersWin win = new ordersWin(unit);
-                this.Close();
+                ordersWin win = new ordersWin();
+                win.ShowDialog();
+            }
+            catch (Exception error)
+            {
+                MessageBox.Show(error.Message);
+            }
+        }
+
+        private void Button_Click_7(object sender, RoutedEventArgs e)//edit host
+        {
+            try
+            {
+                Host host = (Host)(hostsLV.SelectedItem);
+                if (host == null)
+                    throw new NullReferenceException("לא נבחר מארח");
+                editHostWin win = new editHostWin(host);
                 win.ShowDialog();
             }
             catch (Exception error)
