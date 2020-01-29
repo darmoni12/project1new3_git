@@ -190,18 +190,18 @@ namespace BL
             req.ActiveStatus = false;
             dal.updateRequest(req);
             dal.updateHostingUnit(unit);
-            rejectNonRelevantOrders(unit,req);
+            rejectNonRelevantOrders(unit);
             int commission=calculateCommission(req);
             dal.updateCommision(commission);
             
             return commission; 
         }
-        private void rejectNonRelevantOrders(HostingUnit unit, GuestRequest req)
+        private void rejectNonRelevantOrders(HostingUnit unit)
         {
             foreach (Order order in GetOrderByUnit(unit))
             {
-                GuestRequest x = getRequest(order.GuestRequestKey);
-                if(order.Status==OrderStatus.MailSent&&!unit.fitCheck(x))//ההזמנה נשלחה אבל כבר לא רלוונטית מבחינת ימים
+                GuestRequest req = getRequest(order.GuestRequestKey);
+                if(order.Status==OrderStatus.MailSent&&!unit.fitCheck(req))//ההזמנה נשלחה אבל כבר לא רלוונטית מבחינת ימים
                 {
                     rejectOrderSp(order);
                 }
