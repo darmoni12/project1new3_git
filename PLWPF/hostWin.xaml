@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PLWPF"
         mc:Ignorable="d"
-        Title="hostWin" Height="430.989" Width="765.959">
+         Height="430.989" Width="765.959">
     <Window.Background>
         <ImageBrush ImageSource="background.jpg"/>
     </Window.Background>

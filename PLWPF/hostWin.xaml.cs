@@ -26,9 +26,12 @@ namespace PLWPF
         public hostWin(Host host)
         {
             InitializeComponent();
-            myHost = host;
+            
+            myHost = host;            
             unitCB.ItemsSource = myBL.getUnitsForHost(myHost);
-
+            this.Title ="host:   "+ host.PrivateName;
+            //unitCB.Items.Insert(0, "אנא בחר יחידת אירוח:");
+            unitCB.Text = "sdf";
         }
 
         private void unitCB_SelectionChanged(object sender, SelectionChangedEventArgs e)//select combo box
@@ -156,5 +159,6 @@ namespace PLWPF
                 MessageBox.Show(error.Message);
             }
         }
+ 
     }
 }
